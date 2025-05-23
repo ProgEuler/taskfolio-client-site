@@ -320,24 +320,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* Call to Action Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto px-4 text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join thousands of clients and freelancers who trust our platform for their projects
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-gray-800 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Post Your First Project
-            </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors">
-              Start Freelancing
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

@@ -1,8 +1,11 @@
 @import 'tailwindcss';
 
 .active{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid;
 }
 button{
     cursor: pointer;
+}
+body {
+  background-color: #fff; /* or your desired background */
 }

@@ -48,7 +48,7 @@ const Footer = () => {
 
           {/* Company Info */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-white mb-4">TaskManager</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">Taskfolio</h2>
             <p className="text-gray-300 mb-6 max-w-md">
               Your go-to platform for managing tasks efficiently. Connect with skilled professionals
               or offer your services to help others achieve their goals.
@@ -58,7 +58,7 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center text-gray-300">
                 <Mail size={16} className="mr-3" />
-                <span>support@taskmanager.com</span>
+                <span>support@Taskfolio.com</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone size={16} className="mr-3" />
@@ -151,7 +151,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="text-gray-300 text-sm mb-4 md:mb-0">
-              © {currentYear} TaskManager. All rights reserved.
+              © {currentYear} Taskfolio. All rights reserved.
             </div>
 
             {/* Legal Links */}

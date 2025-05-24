@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md border border-gray-200"> {/* Adjusted shadow and added border */}
+      <div className="bg-white p-8   shadow-md w-full max-w-md border border-gray-200"> {/* Adjusted shadow and added border */}
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Welcome Back!</h2>
         <p className="text-center text-gray-600 mb-8">Sign in to your Taskfolio account</p>
 

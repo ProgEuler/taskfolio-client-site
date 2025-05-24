@@ -6,11 +6,15 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Root from "../root";
 import Home from "../pages/home";
+import TaskDetails from "../pages/TaskDetails";
+import UpdateTask from "../pages/UpdateTask";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
         {
             path: '/',
@@ -23,6 +27,14 @@ export const router = createBrowserRouter([
         {
             path: '/browse-tasks',
             element: <BrowseTasks />
+        },
+        {
+            path: '/task-details',
+            element: <TaskDetails />
+        },
+        {
+            path: '/update-task',
+            element: <UpdateTask />
         },
         {
             path: '/my-posted-tasks',

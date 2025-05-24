@@ -9,3 +9,6 @@ button{
 body {
   background-color: #fff; /* or your desired background */
 }
+input, select, textarea{
+    outline: none;
+}

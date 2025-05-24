@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, DollarSign, User, Mail, FileText, Tag, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import axios from 'axios';
 
 const AddTask = () => {
   const [formData, setFormData] = useState({
@@ -76,6 +77,7 @@ const AddTask = () => {
   };
 
   const handleSubmit = async (e) => {
+
     if (e) e.preventDefault();
 
     if (!validateForm()) {
@@ -86,7 +88,13 @@ const AddTask = () => {
 
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+          axios.post('/api/tasks', formData)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
       // Here you would typically send data to your backend
       console.log('Task data to be saved:', formData);

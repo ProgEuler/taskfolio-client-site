@@ -16,7 +16,7 @@ const BrowseTasks = () => {
     useEffect( () => {
         axios.get('/api/tasks')
         .then((res) => {
-            
+
             setTasks(res.data)
         })
         .catch((err) => {
@@ -229,7 +229,7 @@ const BrowseTasks = () => {
                   <button
                     onClick={() => {
                         handleSeeDetails(task.id)
-                        navigator('/task-details')
+                        navigator(`/task-details/${task._id}`)
                     }
                     }
 

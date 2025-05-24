@@ -17,10 +17,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar ${
+    <nav className={`navbar z-10 ${
             pathname === '/'
-            ? "absolute top-0 left-0 w-full z-50 bg-transparent backdrop-blur-md text-white/80"
-            : ''
+            ? "absolute top-0 left-0 w-full z-50 bg-transparent text-white/80 rounded-xl"
+            : 'bg-white/5 backdrop-blur-sm rounded-xl sticky top-0'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

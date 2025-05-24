@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Eye, Users, Calendar, DollarSign, Search, Filter, ChevronDown, AlertTriangle } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 const MyPostedTasks = () => {
+  const navigator = useNavigate()
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -166,11 +168,11 @@ const MyPostedTasks = () => {
     // Example: navigate(`/task/${taskId}/bids`);
   };
 
-  const handleAddNewTask = () => {
-    // In a real app, this would navigate to add task page
-    alert('Navigating to Add New Task page');
-    // Example: navigate('/add-task');
-  };
+//   const handleAddNewTask = () => {
+//     // In a real app, this would navigate to add task page
+//     alert('Navigating to Add New Task page');
+//     // Example: navigate('/add-task');
+//   };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -184,7 +186,7 @@ const MyPostedTasks = () => {
             <p className="text-gray-600">Manage and track all your posted tasks</p>
           </div>
           <button
-            onClick={handleAddNewTask}
+            onClick={() => navigator('/add-tasks')}
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white    font-medium hover:bg-blue-700 transition-colors duration-200"
           >
             <Plus className="h-5 w-5 mr-2" />
@@ -275,7 +277,7 @@ const MyPostedTasks = () => {
         </div>
 
         {/* Tasks Table */}
-        <div className="bg-white    shadow-sm border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white border border-gray-200 shadow-sm overflow-hidden">
           {filteredTasks.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-gray-400 mb-4">
@@ -290,7 +292,7 @@ const MyPostedTasks = () => {
               </p>
               {tasks.length === 0 && (
                 <button
-                  onClick={handleAddNewTask}
+                  onClick={() => navigator('/add-tasks')}
                   className="inline-flex items-center px-4 py-2 bg-blue-600 text-white    font-medium hover:bg-blue-700"
                 >
                   <Plus className="h-5 w-5 mr-2" />
@@ -423,7 +425,7 @@ const MyPostedTasks = () => {
             <div className="flex space-x-3">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-200 shadow-sm border border-gray-200 shadow-sm-gray-300 text-gray-700    hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border border-gray-200 shadow-sm shadow-sm-gray-300 text-gray-700    hover:bg-gray-50"
               >
                 Cancel
               </button>
@@ -438,7 +440,6 @@ const MyPostedTasks = () => {
         </div>
       )}
     </div>
-  );
-};
-
+  )
+}
 export default MyPostedTasks;

@@ -29,7 +29,8 @@ export const router = createBrowserRouter([
             element: <BrowseTasks />
         },
         {
-            path: '/task-details',
+            path: '/task-details/:id',
+            loader: () => fetch('http://localhost:3000/api/tasks'),
             element: <TaskDetails />
         },
         {

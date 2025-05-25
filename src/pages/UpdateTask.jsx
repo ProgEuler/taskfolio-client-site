@@ -18,8 +18,6 @@ const UpdateTask = () => {
     userName: '',
     userEmail: ''
   });
-
-  const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
 
   // Categories for dropdown

@@ -1,27 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Calendar, DollarSign, User, Clock, MapPin, Star, MessageCircle, Heart, Share2, Flag, CheckCircle, Users, Briefcase } from 'lucide-react';
 import { useLoaderData, useNavigate, useParams } from 'react-router';
+import axios from 'axios';
+import Loading from '../components/Loading';
 
-const TaskDetails = ({ taskId = 1 }) => {
-    const tasks = useLoaderData()
+const TaskDetails = () => {
     const {id} = useParams()
-    console.log(tasks, id)
+    console.log(id)
 
   const [loading, setLoading] = useState(true);
+  const [tasks, setTasks] = useState([])
   const [task, setTask] = useState({});
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [proposal, setProposal] = useState('');
   const [proposedBudget, setProposedBudget] = useState('');
 
-
+    useEffect( () => {
+        axios.get('/api/tasks')
+        .then((res) => {
+            setTasks(res.data)
+            const singleTask = res.data.find(task => String(task._id) === String(id))
+            setTask(singleTask);
+            setLoading(false);
+        })
+        .catch((err) => {
+            console.log(err)
+            setLoading(false);
+        })
+    }, [id]);
+    console.log(task)
 
   const navigator = useNavigate()
-  useEffect(() => {
-    // Simulate API call
-      const Task = tasks.find( task => task._id === parseInt(id))
-      setTask(Task)
-      setLoading(false);
-  }, [taskId]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -48,40 +57,30 @@ const TaskDetails = ({ taskId = 1 }) => {
     console.log('Opening message composer to contact Sarah Johnson');
   };
 
-//   if (loading) {
-//     return (
-//       <div className="min-h-screen bg-gray-50">
-//         {/* Loading State */}
-//         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-//           <div className="text-center py-12">
-//             <div className="animate-spin rounded-full h-12 w-12  border border-gray-200 shadow-sm-2  border border-gray-200 shadow-sm-blue-600  border border-gray-200 shadow-sm-t-transparent mx-auto"></div>
-//             <p className="mt-4 text-gray-600">Loading task details...</p>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
+  if (loading) {
+    return <Loading />
+  }
 
-//   if (!tasks) {
-//     return (
-//       <div className="min-h-screen bg-gray-50">
+  if (!tasks) {
+    return (
+      <div className="min-h-screen bg-gray-50">
 
-//         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-//           <div className="text-center py-12">
-//             <h3 className="text-lg font-medium text-gray-900 mb-2">Task not found</h3>
-//             <p className="text-gray-600">The task you're looking for doesn't exist.</p>
-//             <button
-//               onClick={() => navigator('/browse-tasks')}
-//               className="mt-4 inline-flex items-center px-4 py-2 bg-blue-600 text-white   hover:bg-blue-700"
-//             >
-//               <ArrowLeft className="h-4 w-4 mr-2" />
-//               Back to Browse Tasks
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center py-12">
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Task not found</h3>
+            <p className="text-gray-600">The task you're looking for doesn't exist.</p>
+            <button
+              onClick={() => navigator('/browse-tasks')}
+              className="mt-4 inline-flex items-center px-4 py-2 bg-blue-600 text-white   hover:bg-blue-700"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Browse Tasks
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

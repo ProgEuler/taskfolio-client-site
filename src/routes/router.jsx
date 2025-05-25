@@ -30,11 +30,10 @@ export const router = createBrowserRouter([
         },
         {
             path: '/task-details/:id',
-            loader: () => fetch('http://localhost:3000/api/tasks'),
             element: <TaskDetails />
         },
         {
-            path: '/update-task',
+            path: '/update-task/:id',
             element: <UpdateTask />
         },
         {

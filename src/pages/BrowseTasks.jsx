@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, Calendar, DollarSign, User, Eye, ChevronDown } from 'lucide-react';
+import { Search, Filter, Calendar, DollarSign, User, Eye, ChevronDown, Loader } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import Loading from '../components/Loading';
 
 const BrowseTasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -16,11 +17,12 @@ const BrowseTasks = () => {
     useEffect( () => {
         axios.get('/api/tasks')
         .then((res) => {
-
             setTasks(res.data)
+            setLoading(false)
         })
         .catch((err) => {
             console.log(err)
+            setLoading(false)
         })
     }, [])
 
@@ -95,20 +97,9 @@ const BrowseTasks = () => {
     // Example: navigate(`/task/${taskId}`);
   };
 
-//   if (loading) {
-//     return (
-//       <div className="min-h-screen bg-gray-50">
-
-//         {/* Loading State */}
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-//           <div className="text-center py-12">
-//             <div className="animate-spin rounded-full h-12 w-12 border border-gray-200 shadow-sm-2 border border-gray-200 shadow-sm-blue-600 border border-gray-200 shadow-sm-t-transparent mx-auto"></div>
-//             <p className="mt-4 text-gray-600">Loading tasks...</p>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

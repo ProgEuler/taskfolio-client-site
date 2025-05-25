@@ -346,6 +346,14 @@ const UpdateTask = () => {
 
             {/* Action Buttons */}
             <div className="flex gap-4 pt-6">
+
+             <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="flex-1 py-2 px-4 border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+              >
+                Cancel
+             </button>
               <button
                 type="submit"
                 disabled={updating}
@@ -368,13 +376,6 @@ const UpdateTask = () => {
                 )}
               </button>
 
-              <button
-                type="button"
-                onClick={() => navigate(-1)}
-                className="flex-1 py-2 px-4 border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-              >
-                Cancel
-              </button>
             </div>
           </form>
         </div>

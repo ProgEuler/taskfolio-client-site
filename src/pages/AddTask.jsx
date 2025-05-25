@@ -10,7 +10,7 @@ const AddTask = () => {
     deadline: '',
     budget: '',
     userEmail: 'john.doe@example.com', // Read-only field
-    userName: 'John Doe' // Read-only field
+    postedBy: 'John Doe' // Read-only field
   });
 
   const [errors, setErrors] = useState({});
@@ -88,13 +88,13 @@ const AddTask = () => {
 
     try {
       // Simulate API call
-          axios.post('/api/tasks', formData)
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        axios.post('/api/tasks', formData)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
       // Here you would typically send data to your backend
       console.log('Task data to be saved:', formData);
@@ -109,8 +109,8 @@ const AddTask = () => {
         description: '',
         deadline: '',
         budget: '',
-        userEmail: 'john.doe@example.com',
-        userName: 'John Doe'
+        userEmail: '',
+        postedBy: ''
       });
 
       // Hide success message after 5 seconds
@@ -166,9 +166,6 @@ const AddTask = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">Post a New Project</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Connect with top talent by clearly describing your project requirements
-          </p>
         </div>
 
         {/* Form Card */}
@@ -283,7 +280,7 @@ const AddTask = () => {
                   <textarea
                     value={formData.description}
                     onChange={(e) => handleInputChange('description', e.target.value)}
-                    rows={8}
+                    rows={6}
                     className={`w-full px-4 py-3 border ${errors.description ? 'border-red-300' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none`}
                     placeholder="Describe your project in detail. Include specific requirements, deliverables, and any technical specifications..."
                     maxLength={2000}
@@ -305,9 +302,10 @@ const AddTask = () => {
                   </label>
                   <input
                     type="email"
-                    value={formData.userEmail}
-                    readOnly
-                    className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600 cursor-not-allowed"
+                    // value={formData.userEmail}
+                    // readOnly
+                    onChange={(e) => handleInputChange('userEmail', e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600"
                   />
                   <p className="mt-2 text-xs text-gray-500">This field cannot be edited</p>
                 </div>
@@ -320,9 +318,10 @@ const AddTask = () => {
                   </label>
                   <input
                     type="text"
-                    value={formData.userName}
-                    readOnly
-                    className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600 cursor-not-allowed"
+                    onChange={(e) => handleInputChange('postedBy', e.target.value)}
+                    // value={formData.userName}
+                    // readOnly
+                    className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600"
                   />
                   <p className="mt-2 text-xs text-gray-500">This field cannot be edited</p>
                 </div>

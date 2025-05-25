@@ -12,9 +12,8 @@ const MyPostedTasks = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState(null);
+  const [taskToDelete, setTaskToDelete] = useState(null)
 
-  // Mock user data - in real app, this would come from authentication
   const currentUser = {
     id: 1,
     name: 'Sarah Johnson',
@@ -90,25 +89,27 @@ const MyPostedTasks = () => {
 //   };
 
   const handleUpdate = (taskId) => {
-    // In a real app, this would navigate to edit task page
-    // alert(`Navigating to update task with ID: ${taskId}`);
-    // Example: navigate(`/edit-task/${taskId}`);
     navigator(`/update-task/${taskId}`)
   };
 
-  const handleDelete = (task) => {
-    setTaskToDelete(task);
+  const handleDelete = (id) => {
+    setTaskToDelete(id)
     setShowDeleteModal(true);
   };
 
-  const confirmDelete = () => {
-    if (taskToDelete) {
-      // In a real app, this would make API call to delete task
-      setTasks(tasks.filter(task => task.id !== taskToDelete.id));
+  const confirmDelete = async () => {
     //   alert(`Task "${taskToDelete.title}" has been deleted successfully!`);
-      setShowDeleteModal(false);
-      setTaskToDelete(null);
-    }
+  try {
+    await axios.delete(`/api/tasks/${taskToDelete._id}`);
+    // setTasks(tasks.filter(t => t._id !== taskToDelete));
+    setShowDeleteModal(false);
+    setTaskToDelete(null)
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    setShowDeleteModal(false);
+  }
+    setShowDeleteModal(false);
+
   };
 
   const handleViewBids = (taskId) => {
@@ -117,11 +118,6 @@ const MyPostedTasks = () => {
     // Example: navigate(`/task/${taskId}/bids`);
   };
 
-//   const handleAddNewTask = () => {
-//     // In a real app, this would navigate to add task page
-//     alert('Navigating to Add New Task page');
-//     // Example: navigate('/add-task');
-//   };
   return (
     <div className="min-h-screen bg-gray-50">
 
@@ -328,7 +324,7 @@ const MyPostedTasks = () => {
                                 Update
                             </button>
                             <button
-                                onClick={() => handleDelete(task)}
+                                onClick={() => handleDelete(task._id)}
                                 className="inline-flex items-center px-3 py-1 border border-gray-200 shadow-sm shadow-sm-red-300 rounded text-xs font-medium text-red-700 bg-white hover:bg-red-50"
                                 title="Delete Task"
                             >

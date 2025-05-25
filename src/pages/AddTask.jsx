@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Calendar, DollarSign, User, Mail, FileText, Tag, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Calendar, DollarSign, User, Mail, FileText, Tag, Clock, AlertCircle } from 'lucide-react';
 import axios from 'axios';
+import Success from '../components/Success';
 
 const AddTask = () => {
   const [formData, setFormData] = useState({
@@ -116,7 +117,7 @@ const AddTask = () => {
       // Hide success message after 5 seconds
       setTimeout(() => {
         setShowSuccessAlert(false);
-      }, 5000);
+      }, 3000);
 
     } catch (error) {
       console.error('Error submitting task:', error);
@@ -148,19 +149,7 @@ const AddTask = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       {/* Success Alert */}
-      {showSuccessAlert && (
-        <div className="fixed top-6 right-6 z-50 bg-white border-l-4 border-green-500 rounded-lg shadow-xl p-6 max-w-md">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <CheckCircle className="h-6 w-6 text-green-500" />
-            </div>
-            <div className="ml-3">
-              <h3 className="text-sm font-medium text-gray-900">Task Posted Successfully!</h3>
-              <p className="mt-1 text-xs text-gray-600">Your task has been added and is now live on the platform.</p>
-            </div>
-          </div>
-        </div>
-      )}
+      {showSuccessAlert && <Success message={'Task Added Successfully'}/>}
 
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}

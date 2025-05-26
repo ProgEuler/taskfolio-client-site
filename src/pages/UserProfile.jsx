@@ -74,7 +74,6 @@ export default function UserProfile() {
 //     const date = new Date(year, month - 1);
 //     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 //   };
-
   return (
     <div className="max-w-6xl mx-auto p-6 bg-gray-50 min-h-screen">
       {/* Header */}
@@ -114,7 +113,7 @@ export default function UserProfile() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <div className="bg-white rounded-lg p-6 border border-gray-200">
           <div className="flex items-center">
             <div className="p-3 bg-blue-100 rounded-lg">
@@ -162,7 +161,7 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Profile Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -198,7 +197,7 @@ export default function UserProfile() {
                   <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   <span className="text-sm text-gray-600">{profile.rating} rating</span>
                 </div>
-                {/* <p className="text-sm text-gray-500">Member since {formatMemberSince(profile.memberSince)}</p> */}
+                <p className="text-sm text-gray-500">Member since {profile.memberSince}</p>
               </div>
             </div>
 
@@ -214,7 +213,7 @@ export default function UserProfile() {
                     placeholder="Tell us about yourself..."
                   />
                 ) : (
-                  <p className="text-sm text-gray-700">{profile.bio}</p>
+                  <p className="text-sm text-gray-700">{profile.bio || 'Bio'}</p>
                 )}
               </div>
 
@@ -237,24 +236,21 @@ export default function UserProfile() {
         {/* Skills & Stats */}
         <div className="space-y-6">
           {/* Skills */}
-          {/* <div className="bg-white rounded-lg border border-gray-200 p-6">
+          <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h3 className="text-sm font-medium text-gray-900 mb-4">Skills</h3>
             <div className="space-y-2">
-              {(isEditing ? editedProfile.skills : profile.skills).map((skill, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                    {skill}
-                  </span>
-                  {isEditing && (
-                    <button
-                      onClick={() => removeSkill(skill)}
-                      className="text-red-500 hover:text-red-700 ml-2"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  )}
-                </div>
-              ))}
+
+              { editedProfile.skills && editedProfile.skills.length > 0 ? (
+                editedProfile.skills.map((skill, index) => (
+
+                  <div key={index} className="flex items-center justify-between">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      {skill}
+                    </span>
+                    </div>
+                ))) : (
+                <p className="text-sm text-gray-500">No skills added yet.</p>
+                )}
               {isEditing && (
                 <div className="flex space-x-2 mt-3">
                   <input
@@ -273,8 +269,8 @@ export default function UserProfile() {
                   </button>
                 </div>
               )}
-            </div> */}
-          {/* </div> */}
+            </div>
+         </div>
 
           {/* Additional Stats */}
           <div className="bg-white rounded-lg border border-gray-200 p-6">
@@ -285,12 +281,14 @@ export default function UserProfile() {
                 {isEditing ? (
                   <input
                     type="month"
-                    value={editedProfile.memberSince}
-                    onChange={(e) => handleInputChange('memberSince', e.target.value)}
-                    className="text-sm font-medium text-gray-900 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={profile.memberSince}
+                    readOnly
+                    className="text-sm font-medium text-gray-900 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-not-allowed"
                   />
-                ) : ( ""
-                //   <span className="text-sm font-medium text-gray-900">{formatMemberSince(profile.memberSince)}</span>
+                ) : (
+                  <span className="text-sm font-medium text-gray-900">
+                    {profile.memberSince}</span>
+
                 )}
               </div>
               <div className="flex justify-between">

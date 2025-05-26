@@ -18,25 +18,25 @@ const MyPostedTasks = () => {
   const [taskToDelete, setTaskToDelete] = useState({})
 
   const currentUser = {
-    name: user.displayName,
+    name: user.name,
     email: user.email
   };
 
   const statusOptions = ['all', 'Active', 'In Progress', 'Completed', 'Paused'];
 
-    useEffect( () => {
-        axios.get('/api/tasks')
+useEffect( () => {
+     axios.get('/api/tasks')
         .then((res) => {
-            setTasks(res.data)
-            const postedTask = res.data.filter(task => task.postedBy === currentUser.name)
-            setTasks(postedTask);
+            console.log(res.data)
+            setTasks(res.data.filter(task => task.userEmail === currentUser.email))
             setLoading(false);
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err);
             setLoading(false);
-        })
-    }, []);
+        });
+}, []);
+console.log(tasks)
 
   useEffect(() => {
     let filtered = tasks;
@@ -57,37 +57,6 @@ const MyPostedTasks = () => {
     setFilteredTasks(filtered);
   }, [tasks, searchTerm, statusFilter]);
 
-//   const formatDate = (dateString) => {
-//     return new Date(dateString).toLocaleDateString('en-US', {
-//       year: 'numeric',
-//       month: 'short',
-//       day: 'numeric'
-//     });
-//   };
-
-//   const formatBudget = (budget) => {
-//     return new Intl.NumberFormat('en-US', {
-//       style: 'currency',
-//       currency: 'USD',
-//       minimumFractionDigits: 0,
-//       maximumFractionDigits: 0
-//     }).format(budget);
-//   };
-
-//   const getStatusBadge = (status) => {
-//     const statusConfig = {
-//       'Active': 'bg-green-100 text-green-800',
-//       'In Progress': 'bg-blue-100 text-blue-800',
-//       'Completed': 'bg-gray-100 text-gray-800',
-//       'Paused': 'bg-yellow-100 text-yellow-800'
-//     };
-
-//     return (
-//       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusConfig[status] || 'bg-gray-100 text-gray-800'}`}>
-//         {status}
-//       </span>
-//     );
-//   };
 
   const handleUpdate = (taskId) => {
     navigator(`/update-task/${taskId}`)
@@ -122,10 +91,9 @@ const MyPostedTasks = () => {
     alert(`Viewing bids for task ID: ${taskId}`);
     // Example: navigate(`/task/${taskId}/bids`);
   };
-
+  if(loading) return <Loading />
   return (
     <div className="min-h-screen bg-gray-50">
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
@@ -173,7 +141,7 @@ const MyPostedTasks = () => {
                 <Users className="h-6 w-6 text-purple-600" />
               </div>
               <div className="ml-4">
-                <h3 className="text-2xl font-bold text-gray-900">{tasks.reduce((sum, task) => sum + task.bidsCount, 0)}</h3>
+                <h3 className="text-2xl font-bold text-gray-900">{tasks.reduce((sum, task) => sum + task.bidsCount || 0, 0)}</h3>
                 <p className="text-gray-600 text-sm">Total Bids</p>
               </div>
             </div>
@@ -275,7 +243,7 @@ const MyPostedTasks = () => {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                     {filteredTasks.map((task) => (
-                        <tr key={task.id} className="hover:bg-gray-50">
+                        <tr key={task._id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
                             <div>
                             <div className="text-sm font-medium text-gray-900 mb-1">

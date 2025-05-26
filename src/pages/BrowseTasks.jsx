@@ -176,7 +176,7 @@ const BrowseTasks = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredTasks.map((task) => (
-              <div key={task.id} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+              <div key={task._id} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                 <div className="p-6">
                   {/* Category Badge */}
                   <div className="mb-3">

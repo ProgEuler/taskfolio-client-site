@@ -1,8 +1,9 @@
-import React, { use, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Calendar, DollarSign, User, Mail, FileText, Tag, Clock, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 import Success from '../components/Success';
 import { AuthContext } from '../provider/AuthProvider';
+import Loading from '../components/Loading';
 
 const AddTask = () => {
   const [formData, setFormData] = useState({
@@ -11,19 +12,74 @@ const AddTask = () => {
     description: '',
     deadline: '',
     budget: '',
-    userEmail: 'john.doe@example.com', // Read-only field
-    postedBy: 'John Doe' // Read-only field
+    userInfo : {
+        name: 'john doe',
+        email: '',
+        memberSince: '',
+        avatar: '',
+        bio: ''
+        }
   });
+  const [postedBy, setPostedBy] = useState({})
 
   const { user } = use(AuthContext)
-    if (user) {
-        formData.userEmail = user.email;
-        formData.postedBy = user.name;
-    }
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+//   useEffect(() => {
+//         axios.get(`http://localhost:3000/api/user/${user.email}`)
+//       .then(response => {
+//         setPostedBy(response.data);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching user data:', error);
+//       })
+//       .finally(() => {
+//         if (user) {
+//           setFormData(prev => ({
+//             ...prev,
+//             userInfo: {
+//               ...prev.userInfo,
+//               email: user.email,
+//               name: user.name,
+//               memberSince: postedBy.memberSince,
+//               avatar: postedBy.avatar,
+//               bio: postedBy.bio,
+//             }
+//           }));
+//         }
+//       })
+//   }, []);
 
+useEffect(() => {
+  if (user && user.email) {
+    axios.get(`http://localhost:3000/api/user/${user.email}`)
+      .then(response => {
+        setPostedBy(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  }
+}, [user]);
+
+useEffect(() => {
+  if (user && postedBy && postedBy.email) {
+    setFormData(prev => ({
+      ...prev,
+      userInfo: {
+        ...prev.userInfo,
+        email: user.email,
+        name: postedBy.name,
+        memberSince: postedBy.memberSince,
+        avatar: postedBy.avatar,
+        bio: postedBy.bio,
+      }
+    }));
+  }
+}, [user, postedBy]);
+console.log(formData)
   const categories = [
     'Web Development',
     'Mobile Development',
@@ -293,7 +349,7 @@ const AddTask = () => {
                   </label>
                   <input
                     type="email"
-                    value={formData.userEmail}
+                    value={formData.user.email}
                     readOnly
                     onChange={(e) => handleInputChange('userEmail', e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600 cursor-not-allowed"

@@ -124,18 +124,7 @@ const TaskDetails = () => {
 
               {/* Task Stats */}
               <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <MessageCircle className="h-4 w-4 mr-1" />
-                  <span>{task.proposals} proposals</span>
-                </div>
-                <div className="flex items-center">
-                  <Users className="h-4 w-4 mr-1" />
-                  <span>{task.views} views</span>
-                </div>
-                <div className="flex items-center">
-                  <Heart className="h-4 w-4 mr-1" />
-                  <span>{task.favorites} favorites</span>
-                </div>
+
                 <div className="flex items-center">
                   <Calendar className="h-4 w-4 mr-1" />
                   <span>Posted {formatDate(task.postedDate)}</span>
@@ -167,52 +156,29 @@ const TaskDetails = () => {
                   <Clock className="h-5 w-5 text-gray-400 mr-3" />
                   <div>
                     <p className="text-sm text-gray-600">Duration</p>
-                    <p className="font-semibold text-gray-900">{task.estimatedDuration}</p>
+                    <p className="font-semibold text-gray-900">5-6 Weeks</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <MapPin className="h-5 w-5 text-gray-400 mr-3" />
                   <div>
                     <p className="text-sm text-gray-600">Location</p>
-                    <p className="font-semibold text-gray-900">{task.location}</p>
+                    <p className="font-semibold text-gray-900">Remote</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <Briefcase className="h-5 w-5 text-gray-400 mr-3" />
                   <div>
                     <p className="text-sm text-gray-600">Experience Level</p>
-                    <p className="font-semibold text-gray-900">{task.experienceLevel}</p>
+                    <p className="font-semibold text-gray-900">Intermediate</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
                   <div>
                     <p className="text-sm text-gray-600">Status</p>
-                    <p className="font-semibold text-green-600">{task.status}</p>
+                    <p className="font-semibold text-green-600">Active</p>
                   </div>
-                </div>
-              </div>
-
-              {/* Skills Required */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Skills Required</h3>
-                <div className="flex flex-wrap gap-2">
-                  {(task.skills || []).map((skill, index) => (
-                    <span
-                      key={index}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Full Description */}
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Full Description</h3>
-                <div className="prose max-w-none text-gray-600 whitespace-pre-line">
-                  {task.fullDescription}
                 </div>
               </div>
             </div>
@@ -237,7 +203,7 @@ const TaskDetails = () => {
             </div>
 
             {/* Poster Information */}
-<div className="bg-white border border-gray-200 shadow-sm p-6 mb-6">
+            <div className="bg-white border border-gray-200 shadow-sm p-6 mb-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">About the Client</h3>
 
               <div className="flex items-center mb-4">
@@ -251,7 +217,7 @@ const TaskDetails = () => {
                   <div className="flex items-center">
                     <Star className="h-4 w-4 text-yellow-400 mr-1" />
                     <span className="text-sm text-gray-600">
-                      {task.posterInfo?.rating} ({task.posterInfo?.reviewsCount} reviews)
+                      4.5
                     </span>
                   </div>
                 </div>
@@ -266,12 +232,7 @@ const TaskDetails = () => {
                       : ''}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Projects completed:</span>
-                  <span className="font-medium">{task.posterInfo?.completedProjects}</span>
-                </div>
               </div>
-
               <p className="text-sm text-gray-600">{task.posterInfo?.bio}</p>
             </div>
           </div>

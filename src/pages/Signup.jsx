@@ -16,12 +16,27 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [generalError, setGeneralError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  // Function to validate password based on requirements
+//   const userInfo = {
+//     name,
+//     email,
+//     avatar : photoURL || 'https://i.ibb.co/4f8z5bH/avatar.png'
+//     rating: random
+//     // rating: Math.floor(Math.random() * 5) + 1 // Random rating between 1 and 5
+//     memberSince: new Date().toLocaleDateString(),
+//     // memberSince: new Date().toLocaleDateString('en-US', {
+//       // year: 'numeric',
+//       // month: 'long',
+//       // day: 'numeric'
+//     // })
+//     completedProjects: random
+//     // completedProjects: Math.floor(Math.random() * 100) // Random number of completed projects
+//     bio
+//   }
   const validatePassword = (pwd) => {
     if (pwd.length < 6) {
       return 'Password must be at least 6 characters long.';
@@ -66,12 +81,12 @@ const Signup = () => {
         .finally(() =>{
             setLoading(false)
         })
-  };
+  }
 
   const handleGoogleLogin = () => {
     console.log('Google Login initiated');
     googleSignIn()
-  };
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans">
@@ -219,7 +234,7 @@ const Signup = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup

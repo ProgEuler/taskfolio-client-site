@@ -9,6 +9,7 @@ import Home from "../pages/home";
 import TaskDetails from "../pages/TaskDetails";
 import UpdateTask from "../pages/UpdateTask";
 import ErrorPage from "../pages/ErrorPage";
+import UserProfile from "../pages/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
         {
             path: '/signup',
             element: <Signup />
+        },
+        {
+            path: '/user',
+            element: <UserProfile />
         }
     ]
   }

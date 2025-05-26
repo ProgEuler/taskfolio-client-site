@@ -11,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState()
 
   const handleLogin = (e) => {
     e.preventDefault();

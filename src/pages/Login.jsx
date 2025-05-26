@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
+import { AuthContext } from '../provider/AuthProvider';
+import Loading from '../components/Loading';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
+
+  const { logIn } = use(AuthContext)
+  const navigator = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Here you would typically handle the login logic,
-    // e.g., send a request to your backend API for authentication.
-    console.log('Login attempt with:', { email, password, rememberMe });
-    // In a real application, you'd navigate to a dashboard or home page on successful login.
-    // Replace alert with a custom modal or toast notification for better UX.
-    // For now, using alert as a placeholder.
-    alert('Login functionality is not implemented yet. Check console for details.');
+
+    setLoading(true)
+    logIn(email, password)
+        .then(() =>{
+            console.log('Login attempt with:', { email, password, rememberMe });
+            navigator('/')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(() =>{
+            setLoading(false)
+        })
+
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans">
-      <div className="bg-white p-8   shadow-md w-full max-w-md border border-gray-200"> {/* Adjusted shadow and added border */}
+      <div className="bg-white p-8   shadow-md w-full max-w-md border border-gray-200">
+        { loading && <Loading /> }
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Welcome Back!</h2>
         <p className="text-center text-gray-600 mb-8">Sign in to your Taskfolio account</p>
 

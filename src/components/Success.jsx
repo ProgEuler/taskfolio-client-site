@@ -11,7 +11,7 @@ export default function Success({ message }) {
             </div>
             <div className="ml-3">
               <h3 className="text-sm font-medium text-gray-900">{message}</h3>
-              <p className="mt-1 text-xs text-gray-600">Your task has been added and is now live on the platform.</p>
+              {/* <p className="mt-1 text-xs text-gray-600">Your task has been added and is now live on the platform.</p> */}
             </div>
           </div>
         </div>

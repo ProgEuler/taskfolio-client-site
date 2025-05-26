@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import { AuthContext } from '../provider/AuthProvider';
+import Success from '../components/Success';
+import Loading from '../components/Loading';
+import { FaGoogle } from 'react-icons/fa';
 
 const Signup = () => {
+
+  const { createUser, googleSignIn } = use(AuthContext)
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photoURL, setPhotoURL] = useState('');
@@ -10,7 +17,9 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState('');
   const [generalError, setGeneralError] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   // Function to validate password based on requirements
   const validatePassword = (pwd) => {
@@ -42,22 +51,36 @@ const Signup = () => {
       return;
     }
 
-    // Here you would typically handle the registration logic,
-    // e.g., send a request to your backend API for user creation.
     console.log('Registration attempt with:', { name, email, photoURL, password });
-    // In a real application, you'd navigate to a confirmation page or login page.
-    alert('Registration functionality is not implemented yet. Check console for details.');
+
+    setLoading(true)
+    createUser(email, confirmPassword)
+        .then(() =>{
+            setShowSuccess(true)
+            console.log("user created successfully")
+            setTimeout(() => setShowSuccess(false), 2000);
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+        .finally(() =>{
+            setLoading(false)
+        })
   };
 
   const handleGoogleLogin = () => {
-    // Implement Google Login logic here
     console.log('Google Login initiated');
-    alert('Google Login functionality is not implemented yet.');
+    googleSignIn()
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md border border-gray-200">
+        { loading && <Loading /> }
+        {
+            showSuccess &&
+            <Success message={`User "${name}" created successfully`}/>
+        }
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Create Your Account</h2>
         <p className="text-center text-gray-600 mb-8">Join Taskfolio and start building your dream team!</p>
 
@@ -171,7 +194,7 @@ const Signup = () => {
             type="submit"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           >
-            Register Account
+            Sign Up
           </button>
         </form>
 
@@ -181,11 +204,8 @@ const Signup = () => {
             onClick={handleGoogleLogin}
             className="mt-3 w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           >
-            {/* Google Icon (using a simple SVG for demonstration) */}
-            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12.24 10.285V14.4h6.806c-.275 1.764-1.857 4.728-6.806 4.728-4.819 0-8.734-3.915-8.734-8.734s3.915-8.734 8.734-8.734c2.909 0 4.604 1.256 5.068 1.79l3.12-3.12c-2.268-2.264-5.197-3.48-8.188-3.48C5.28 1.9 0 7.18 0 13.734c0 6.554 5.28 11.834 11.834 11.834 6.554 0 11.535-4.47 11.535-11.196 0-.756-.07-1.49-.184-2.203H12.24z" />
-            </svg>
-            Sign in with Google
+            <FaGoogle className="w-5 h-5 mr-2" />
+            Sign up with Google
           </button>
         </div>
 

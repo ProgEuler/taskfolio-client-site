@@ -4,10 +4,15 @@ import { AuthContext } from '../provider/AuthProvider';
 import Success from '../components/Success';
 import Loading from '../components/Loading';
 import { FaGoogle } from 'react-icons/fa';
+import axios from 'axios';
+import { getAuth, updateProfile } from 'firebase/auth';
+import app from '../firebase/firebase.config';
+import Error from '../components/Error';
 
 const Signup = () => {
 
-  const { createUser, googleSignIn } = use(AuthContext)
+  const { user, createUser, googleSignIn } = use(AuthContext)
+  const auth = getAuth(app)
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,28 +20,28 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [generalError, setGeneralError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false)
+  const [error, setError] = useState('')
+  const [showError, setShowError] = useState(false)
   const [loading, setLoading] = useState(false)
 
-//   const userInfo = {
-//     name,
-//     email,
-//     avatar : photoURL || 'https://i.ibb.co/4f8z5bH/avatar.png'
-//     rating: random
-//     // rating: Math.floor(Math.random() * 5) + 1 // Random rating between 1 and 5
-//     memberSince: new Date().toLocaleDateString(),
-//     // memberSince: new Date().toLocaleDateString('en-US', {
-//       // year: 'numeric',
-//       // month: 'long',
-//       // day: 'numeric'
-//     // })
-//     completedProjects: random
-//     // completedProjects: Math.floor(Math.random() * 100) // Random number of completed projects
-//     bio
-//   }
+  const userInfo = {
+    name,
+    email,
+    avatar : photoURL || 'https://img.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-2210.jpg?semt=ais_hybrid&w=740',
+    rating: Math.floor(Math.random() * 5) + 1, // Random rating between 1 and 5
+    memberSince: new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }),
+    skills: [],
+    tasksPosted: Math.floor(Math.random() * 50), // Random number of tasks posted
+    completedProjects: Math.floor(Math.random() * 100), // Random number of completed projects
+    bio: ''
+  }
   const validatePassword = (pwd) => {
     if (pwd.length < 6) {
       return 'Password must be at least 6 characters long.';
@@ -52,7 +57,7 @@ const Signup = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    setGeneralError('');
+    setError('');
     setPasswordError('');
 
     const pwdValidationMessage = validatePassword(password);
@@ -70,13 +75,40 @@ const Signup = () => {
 
     setLoading(true)
     createUser(email, confirmPassword)
-        .then(() =>{
+        .then((user) =>{
+            updateProfile(auth.currentUser, {
+                displayName: name,
+                photoURL: photoURL || 'https://img.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-2210.jpg?semt=ais_hybrid&w=740'
+            })
+            
+            console.log(user)
+
+            axios.post('http://localhost:3000/api/users', userInfo)
+                .then(response => {
+                    console.log("User created successfully:", response.data);
+                    setName('');
+                    setEmail('');
+                    setPhotoURL('');
+                    setPassword('');
+                    setConfirmPassword('');
+                    setPasswordError('');
+                    setGeneralError('');
+                })
+                .catch(error => {
+                    console.error("Error creating user:", error);
+                    setError('Failed to create user. Please try again.');
+                });
+
             setShowSuccess(true)
             console.log("user created successfully")
             setTimeout(() => setShowSuccess(false), 2000);
         })
-        .catch(err =>{
-            console.log(err)
+        .catch((error) => {
+            setError(error.message);
+            setShowError(true);
+            setTimeout(() => {
+                setShowError(false);
+            }, 3000);
         })
         .finally(() =>{
             setLoading(false)
@@ -91,6 +123,7 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md border border-gray-200">
+        { showError && <Error message={error} /> }
         { loading && <Loading /> }
         {
             showSuccess &&
@@ -203,7 +236,7 @@ const Signup = () => {
             )}
           </div>
 
-          {generalError && <p className="text-sm text-red-600 text-center">{generalError}</p>}
+          {showError && <p className="text-sm text-red-600 text-center">{error}</p>}
 
           <button
             type="submit"

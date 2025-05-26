@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { Menu, X, Lock } from 'lucide-react';
+import React, { use, useState } from 'react';
+import { Menu, X, Lock, LogOut } from 'lucide-react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
+import { AuthContext } from '../provider/AuthProvider';
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate()
+  const { user, logOut } = use(AuthContext)
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Demo state for login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,6 +18,18 @@ const Navbar = () => {
   const toggleLoginStatus = () => {
     setIsLoggedIn(!isLoggedIn);
   };
+
+  const handleLogout = () =>{
+        // console.log("logging out")
+        navigate('/login')
+        logOut()
+            .then(() => {
+                // console.log("logged out")
+            })
+            .catch((error) => {
+                // console.error("Error logging out:", error)
+            })
+    }
 
   return (
     <nav className={`navbar z-10 ${
@@ -32,33 +47,61 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-center space-x-4">
                 <NavLink to={'/'}>Home</NavLink>
                 <NavLink to={'/add-tasks'}>Add Task</NavLink>
                 <NavLink to={'/browse-tasks'}>Browse Tasks</NavLink>
                 <NavLink to={'/my-posted-tasks'}>My Posted Tasks</NavLink>
               {/* Login/Signup Button */}
+                <div className="flex">
+            {
+                user ?
+                (<>
+                    <button
+                        onClick={() =>
+                            navigate('/user/' + user.email)
+                        }
+                        className="flex items-center gap-1 rounded-lg">
+                        <div className="tooltip tooltip-bottom"
+                            data-tip={user.name}>
+                            <img src={user.photoURL} alt="User"
+                                className="size-9 rounded-full overflow-hidden border-3 border-blue-600" />
+                            </div>
+                        </button>
+                    <button
+                        onClick={handleLogout}
+                        className="hover:bg-white/10 transition-colors flex items-center gap-1 px-4 py-2 rounded-lg font-semibold">
+                        <LogOut className="w-5 h-5" /> Logout
+                    </button>
+                </>)
 
-              <button
-                onClick={ () => navigate('/login')}
-                className={`ml-4 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                  isLoggedIn
-                    ? 'bg-red-600 text-white hover:bg-red-700'
-                    : 'text-blue hover:bg-blue-700 hover:text-white'
-                }`}
-              >
-                Login
-              </button>
-              <button
-                onClick={ () => navigate('/signup')}
-                className={`ml-4 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                  isLoggedIn
-                    ? 'bg-red-600 text-white hover:bg-red-700'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
-              >
-                Sign Up
-              </button>
+                : (
+                <div className="flex">
+                    <button
+                            onClick={ () => navigate('/login')}
+                            className={`ml-4 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                            isLoggedIn
+                                ? 'bg-red-600 text-white hover:bg-red-700'
+                                : 'text-blue hover:bg-blue-700 hover:text-white'
+                            }`}
+                    >
+                        Login
+                    </button>
+                    <button
+                        onClick={ () => navigate('/signup')}
+                        className={`ml-4 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                        isLoggedIn
+                            ? 'bg-red-600 text-white hover:bg-red-700'
+                            : 'bg-blue-600 text-white hover:bg-blue-700'
+                        }`}
+                    >
+                        Sign Up
+                    </button>
+                </div>
+                )
+            }
+
+                </div>
             </div>
           </div>
 

@@ -2,28 +2,37 @@ import React, { use, useState } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import Loading from '../components/Loading';
 import { useNavigate } from 'react-router';
+import Error from '../components/Error';
 
 const Login = () => {
 
-  const { logIn } = use(AuthContext)
+  const { user, logIn } = use(AuthContext)
   const navigator = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const [showError, setShowError] = useState(false)
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     setLoading(true)
     logIn(email, password)
-        .then(() =>{
+        .then((user) =>{
             console.log('Login attempt with:', { email, password, rememberMe });
             navigator('/')
+            console.log(user);
+
         })
         .catch(err => {
             console.log(err)
+            setShowError(true)
+            setError(err.message)
+            setTimeout(() => {
+                setShowError(false)
+            }, 3000)
         })
         .finally(() =>{
             setLoading(false)
@@ -34,6 +43,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans">
       <div className="bg-white p-8   shadow-md w-full max-w-md border border-gray-200">
+        { showError && <Error message={error} /> }
         { loading && <Loading /> }
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Welcome Back!</h2>
         <p className="text-center text-gray-600 mb-8">Sign in to your Taskfolio account</p>

@@ -1,17 +1,19 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import Success from '../components/Success';
+import { AuthContext } from '../provider/AuthProvider';
 
 const UpdateTask = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-
+  const { user } = use(AuthContext)
   const [formData, setFormData] = useState({})
   const [updating, setUpdating] = useState(false)
   const [showSuccessAlert, setShowSuccessAlert] = useState(false)
 
     useEffect( () => {
+
         axios.get(`http://localhost:3000/api/tasks/${id}`)
         .then((res) => {
             setFormData(res.data)
@@ -178,7 +180,7 @@ const UpdateTask = () => {
                   type="text"
                   id="userName"
                   name="userName"
-                  value={formData.postedBy}
+                  value={user.displayName}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
                   readOnly
                 />
@@ -193,7 +195,7 @@ const UpdateTask = () => {
                   type="email"
                   id="userEmail"
                   name="userEmail"
-                  value={formData.userEmail}
+                  value={user.email}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
                   readOnly
                 />

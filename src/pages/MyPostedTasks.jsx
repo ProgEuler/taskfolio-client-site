@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { Plus, Edit, Trash2, Eye, Users, Calendar, DollarSign, Search, Filter, ChevronDown, AlertTriangle } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import Loading from '../components/Loading';
 import axios from 'axios';
 import Modal from '../components/Modal';
+import { AuthContext } from '../provider/AuthProvider';
 
 const MyPostedTasks = () => {
   const navigator = useNavigate()
+  const { user } = use(AuthContext)
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true)
   const [filteredTasks, setFilteredTasks] = useState([]);
@@ -16,9 +18,8 @@ const MyPostedTasks = () => {
   const [taskToDelete, setTaskToDelete] = useState({})
 
   const currentUser = {
-    id: 1,
-    name: 'Luis Romero',
-    email: 'sarah.johnson@example.com'
+    name: user.displayName,
+    email: user.email
   };
 
   const statusOptions = ['all', 'Active', 'In Progress', 'Completed', 'Paused'];

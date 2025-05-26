@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { Calendar, DollarSign, User, Mail, FileText, Tag, Clock, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 import Success from '../components/Success';
+import { AuthContext } from '../provider/AuthProvider';
 
 const AddTask = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,11 @@ const AddTask = () => {
     postedBy: 'John Doe' // Read-only field
   });
 
+  const { user } = use(AuthContext)
+    if (user) {
+        formData.userEmail = user.email;
+        formData.postedBy = user.name;
+    }
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -88,7 +94,6 @@ const AddTask = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
         axios.post('/api/tasks', formData)
             .then(function (response) {
                 console.log(response);
@@ -96,11 +101,8 @@ const AddTask = () => {
             .catch(function (error) {
                 console.log(error);
             });
-
-      // Here you would typically send data to your backend
       console.log('Task data to be saved:', formData);
 
-      // Show success message
       setShowSuccessAlert(true);
 
       // Reset form
@@ -291,10 +293,10 @@ const AddTask = () => {
                   </label>
                   <input
                     type="email"
-                    // value={formData.userEmail}
-                    // readOnly
+                    value={formData.userEmail}
+                    readOnly
                     onChange={(e) => handleInputChange('userEmail', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600"
+                    className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
                   <p className="mt-2 text-xs text-gray-500">This field cannot be edited</p>
                 </div>
@@ -308,9 +310,9 @@ const AddTask = () => {
                   <input
                     type="text"
                     onChange={(e) => handleInputChange('postedBy', e.target.value)}
-                    // value={formData.userName}
-                    // readOnly
-                    className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600"
+                    value={user.displayName || formData.postedBy}
+                    readOnly
+                    className="w-full px-4 py-3 border border-gray-300 bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
                   <p className="mt-2 text-xs text-gray-500">This field cannot be edited</p>
                 </div>

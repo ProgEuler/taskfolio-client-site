@@ -3,6 +3,7 @@ import { Plus, Edit, Trash2, Eye, Users, Calendar, DollarSign, Search, Filter, C
 import { useNavigate } from 'react-router';
 import Loading from '../components/Loading';
 import axios from 'axios';
+import Modal from '../components/Modal';
 
 const MyPostedTasks = () => {
   const navigator = useNavigate()
@@ -12,11 +13,11 @@ const MyPostedTasks = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState(null)
+  const [taskToDelete, setTaskToDelete] = useState({})
 
   const currentUser = {
     id: 1,
-    name: 'Sarah Johnson',
+    name: 'Luis Romero',
     email: 'sarah.johnson@example.com'
   };
 
@@ -35,7 +36,6 @@ const MyPostedTasks = () => {
             setLoading(false);
         })
     }, []);
-    console.log(tasks)
 
   useEffect(() => {
     let filtered = tasks;
@@ -92,18 +92,22 @@ const MyPostedTasks = () => {
     navigator(`/update-task/${taskId}`)
   };
 
-  const handleDelete = (id) => {
-    setTaskToDelete(id)
+  const handleDelete = (task) => {
+      console.log(taskToDelete)
+    setTaskToDelete(task)
     setShowDeleteModal(true);
   };
 
   const confirmDelete = async () => {
+
     //   alert(`Task "${taskToDelete.title}" has been deleted successfully!`);
   try {
+
     await axios.delete(`/api/tasks/${taskToDelete._id}`);
-    // setTasks(tasks.filter(t => t._id !== taskToDelete));
-    setShowDeleteModal(false);
-    setTaskToDelete(null)
+
+        setTasks(tasks.filter(t => t._id !== taskToDelete._id));
+        setShowDeleteModal(false);
+        setTaskToDelete(null)
   } catch (error) {
     console.error('Error deleting task:', error);
     setShowDeleteModal(false);
@@ -324,7 +328,7 @@ const MyPostedTasks = () => {
                                 Update
                             </button>
                             <button
-                                onClick={() => handleDelete(task._id)}
+                                onClick={() => handleDelete(task)}
                                 className="inline-flex items-center px-3 py-1 border border-gray-200 shadow-sm shadow-sm-red-300 rounded text-xs font-medium text-red-700 bg-white hover:bg-red-50"
                                 title="Delete Task"
                             >
@@ -352,40 +356,13 @@ const MyPostedTasks = () => {
       </main>
 
       {/* Delete Confirmation Modal */}
-      {showDeleteModal && taskToDelete && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white    max-w-md w-full p-6">
-            <div className="flex items-center mb-4">
-              <div className="flex-shrink-0">
-                <AlertTriangle className="h-6 w-6 text-red-600" />
-              </div>
-              <div className="ml-3">
-                <h3 className="text-lg font-medium text-gray-900">Delete Task</h3>
-              </div>
-            </div>
-
-            <p className="text-sm text-gray-600 mb-4">
-              Are you sure you want to delete "<span className="font-medium">{taskToDelete.title}</span>"?
-              This action cannot be undone and will remove all associated bids and data.
-            </p>
-
-            <div className="flex space-x-3">
-              <button
-                onClick={() => setShowDeleteModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-200 shadow-sm shadow-sm-gray-300 text-gray-700    hover:bg-gray-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmDelete}
-                className="flex-1 px-4 py-2 bg-red-600 text-white    hover:bg-red-700"
-              >
-                Delete Task
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {showDeleteModal && taskToDelete &&
+        <Modal
+            taskToDelete={taskToDelete}
+            setShowDeleteModal={setShowDeleteModal}
+            confirmDelete={confirmDelete}
+        />
+        }
     </div>
   )
 }

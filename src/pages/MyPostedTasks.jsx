@@ -140,7 +140,7 @@ const MyPostedTasks = () => {
                 <Users className="h-6 w-6 text-purple-600" />
               </div>
               <div className="ml-4">
-                <h3 className="text-2xl font-bold text-gray-900">{tasks.reduce((sum, task) => sum + (task.bidsCount || 0), 0)}</h3> {/* Fixed: added parentheses for precedence */}
+                <h3 className="text-2xl font-bold text-gray-900">{tasks.reduce((sum, task) => sum + (task.bids || 0), 0)}</h3> {/* Fixed: added parentheses for precedence */}
                 <p className="text-gray-600 text-sm">Total Bids</p>
               </div>
             </div>
@@ -278,11 +278,7 @@ const MyPostedTasks = () => {
                               <div className="flex items-center space-x-4 text-xs text-gray-500">
                                 <div className="flex items-center">
                                   <Users className="h-3 w-3 mr-1" />
-                                  {task.bidsCount || 0} bids {/* Fixed: added fallback for undefined */}
-                                </div>
-                                <div className="flex items-center">
-                                  <Eye className="h-3 w-3 mr-1" />
-                                  {task.viewsCount || 0} views {/* Fixed: added fallback for undefined */}
+                                  {task.bids || 0} bids {/* Fixed: added fallback for undefined */}
                                 </div>
                               </div>
                             </div>
@@ -311,7 +307,7 @@ const MyPostedTasks = () => {
                                 title="View Bids"
                               >
                                 <Users className="h-3 w-3 mr-1" />
-                                Bids ({task.bidsCount || 0}) {/* Fixed: added fallback for undefined */}
+                                Bids ({task.bids || 0}) {/* Fixed: added fallback for undefined */}
                               </button>
                             </div>
                           </td>

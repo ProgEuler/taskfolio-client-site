@@ -33,6 +33,7 @@ const INITIAL_FORM_DATA = {
   description: '',
   deadline: '',
   budget: '',
+  bids: 0,
   userInfo: {
     name: '',
     email: '',

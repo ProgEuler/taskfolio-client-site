@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Calendar, DollarSign, User, Clock, MapPin, Star, MessageCircle, Heart, Share2, Flag, CheckCircle, Users, Briefcase } from 'lucide-react';
-import { useLoaderData, useNavigate, useParams } from 'react-router';
+import { ArrowLeft, Calendar, DollarSign, User, Clock, MapPin, Star, Heart, Share2, Flag, CheckCircle, Briefcase } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 import Loading from '../components/Loading';
 
 const TaskDetails = () => {
-    const {id} = useParams()
-    console.log(id)
+    const { id } = useParams()
 
   const [loading, setLoading] = useState(true);
-  const [tasks, setTasks] = useState([])
   const [task, setTask] = useState({});
-  const [showApplyModal, setShowApplyModal] = useState(false);
-  const [proposal, setProposal] = useState('');
-  const [proposedBudget, setProposedBudget] = useState('');
+  const [bidsCount, setBidsCount] = useState(0);
+  const [showBidsMessage, setShowBidsMessage] = useState(false);
+  const [disableBidButton, setDisableBidButton] = useState(false);
 
     useEffect( () => {
-        axios.get('/api/tasks')
+        axios.get('/api/tasks/' + id)
         .then((res) => {
-            setTasks(res.data)
-            const singleTask = res.data.find(task => String(task._id) === String(id))
-            setTask(singleTask);
+            console.log(res.data)
+            setTask(res.data)
+            setBidsCount(res.data.bids); // Assuming bidsCount is part of the task data
             setLoading(false);
         })
         .catch((err) => {
@@ -49,19 +47,25 @@ const TaskDetails = () => {
     }).format(budget);
   };
 
-  const handleApply = () => {
-    setShowApplyModal(true);
-  };
-
-  const handleContactPoster = () => {
-    console.log('Opening message composer to contact Sarah Johnson');
+  const handleBidsCount = () => {
+    setShowBidsMessage(true);
+    setBidsCount(prevCount => prevCount + 1);
+    setDisableBidButton(true);
+    axios.patch('/api/tasks/' + id , { bids: bidsCount + 1 })
+        .then((res) => {
+            console.log(res.data);
+            }
+        )
+        .catch((err) => {
+            console.error(err);
+        });
   };
 
   if (loading) {
     return <Loading />
   }
 
-  if (!tasks) {
+  if (!task) {
     return (
       <div className="min-h-screen bg-gray-50">
 
@@ -88,6 +92,7 @@ const TaskDetails = () => {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
+        <div className="flex justify-between items-center mb-6">
         <button
           onClick={ () => navigator('/browse-tasks')}
           className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6"
@@ -95,6 +100,24 @@ const TaskDetails = () => {
           <ArrowLeft className="h-5 w-5 mr-2" />
           Back to Browse Tasks
         </button>
+
+        {/* Always Visible Bid Count */}
+          <div className="bg-white border border-gray-200 rounded-lg px-4 py-2 shadow-sm">
+            <p className="text-sm text-gray-600">
+                Bids Count :
+              <span className="font-semibold text-blue-600"> {bidsCount} </span>
+            </p>
+          </div>
+        </div>
+
+        {/* Bid Status Banner - Only when you have bids */}
+        { showBidsMessage && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <p className="text-blue-800 font-medium">
+              You bid for {bidsCount - 1} {bidsCount-1 === 1 ? 'opportunity' : 'opportunities'}.
+            </p>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
@@ -117,7 +140,9 @@ const TaskDetails = () => {
                     <Share2 className="h-5 w-5" />
                   </button>
                   <button className="p-2 text-gray-400 hover:text-orange-500">
+
                     <Flag className="h-5 w-5" />
+
                   </button>
                 </div>
               </div>
@@ -188,14 +213,15 @@ const TaskDetails = () => {
           <div className="lg:col-span-1 top-16 sticky self-start h-fit">
             {/* Action Buttons */}
             <div className="bg-white border border-gray-200 shadow-sm mb-6 backdrop-blur-sm rounded-xl p-6">
+              <input
+                onClick={handleBidsCount}
+                className="w-full bg-blue-600 text-white py-3 px-4   font-medium hover:bg-blue-700 transition-colors duration-200 mb-3 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                disabled={disableBidButton}
+                type="button"
+                value="Bid for this Task"
+              />
+
               <button
-                onClick={handleApply}
-                className="w-full bg-blue-600 text-white py-3 px-4   font-medium hover:bg-blue-700 transition-colors duration-200 mb-3"
-              >
-                Apply for This Task
-              </button>
-              <button
-                onClick={handleContactPoster}
                 className="w-full shadow-sm  border border-gray-200 shadow-sm-gray-300 text-gray-700 py-3 px-4   font-medium hover:bg-gray-50 transition-colors duration-200"
               >
                 Contact Client
@@ -210,7 +236,7 @@ const TaskDetails = () => {
                 <img
                   src={task.userInfo?.avatar}
                   alt={task.userInfo?.name}
-                  className="w-12 h-12 rounded-full mr-3"
+                  className="w-12 h-12 rounded-full mr-3 object-cover"
                 />
                 <div>
                   <h4 className="font-semibold text-gray-900">{task.userInfo?.name}</h4>

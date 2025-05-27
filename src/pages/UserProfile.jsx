@@ -5,7 +5,7 @@ import { AuthContext } from '../provider/AuthProvider';
 import { useParams } from 'react-router';
 
 export default function UserProfile() {
-  const { user, updateUser } = use(AuthContext);
+  const { user, updateUser, setUser } = use(AuthContext);
   const { email } = useParams()
 
   const [isEditing, setIsEditing] = useState(false);
@@ -45,15 +45,19 @@ export default function UserProfile() {
       .catch(error => {
         console.error("Error updating profile:", error);
       });
-    setEditedProfileForFirebase({
+
+    updateUser({
         photoURL: editedProfile.avatar,
         displayName: editedProfile.name,
-     });
-
-    updateUser(editedProfileForFirebase)
+     })
         .then(() => {
             console.log("User profile updated successfully");
             console.log(user)
+            setUser(prev => ({
+                ...prev,
+                photoURL: editedProfile.avatar,
+                displayName: editedProfile.name
+            }));
         }
         )
         .catch(error => {

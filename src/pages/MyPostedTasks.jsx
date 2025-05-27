@@ -7,7 +7,7 @@ import Modal from '../components/Modal';
 import { AuthContext } from '../provider/AuthProvider';
 
 const MyPostedTasks = () => {
-  const navigator = useNavigate()
+  const navigate = useNavigate()
   const { user } = use(AuthContext)
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true)
@@ -15,28 +15,29 @@ const MyPostedTasks = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState({})
+  const [taskToDelete, setTaskToDelete] = useState(null)
 
   const currentUser = {
-    name: user.name,
-    email: user.email
+    name: user?.displayName || '', // Fixed: added optional chaining
+    email: user?.email || '' // Fixed: added optional chaining
   };
 
   const statusOptions = ['all', 'Active', 'In Progress', 'Completed', 'Paused'];
+  console.log(currentUser)
+  useEffect(() => {
+    axios.get('/api/tasks')
+      .then((res) => {
+        console.log(res.data)
+        setTasks(res.data.filter(task => task.userInfo.email === currentUser.email))
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, [currentUser.email]); // Fixed: added dependency array
 
-useEffect( () => {
-     axios.get('/api/tasks')
-        .then((res) => {
-            console.log(res.data)
-            setTasks(res.data.filter(task => task.userEmail === currentUser.email))
-            setLoading(false);
-        })
-        .catch((err) => {
-            console.log(err);
-            setLoading(false);
-        });
-}, []);
-console.log(tasks)
+  console.log(tasks)
 
   useEffect(() => {
     let filtered = tasks;
@@ -57,33 +58,29 @@ console.log(tasks)
     setFilteredTasks(filtered);
   }, [tasks, searchTerm, statusFilter]);
 
-
   const handleUpdate = (taskId) => {
-    navigator(`/update-task/${taskId}`)
+    navigate(`/update-task/${taskId}`) // Fixed: updated variable name
   };
 
   const handleDelete = (task) => {
-      console.log(taskToDelete)
+    console.log(task) // Fixed: log the correct variable
     setTaskToDelete(task)
     setShowDeleteModal(true);
   };
 
   const confirmDelete = async () => {
+    if (!taskToDelete) return; // Fixed: added null check
 
-    //   alert(`Task "${taskToDelete.title}" has been deleted successfully!`);
-  try {
-
-    await axios.delete(`/api/tasks/${taskToDelete._id}`);
-
-        setTasks(tasks.filter(t => t._id !== taskToDelete._id));
-        setShowDeleteModal(false);
-        setTaskToDelete(null)
-  } catch (error) {
-    console.error('Error deleting task:', error);
-    setShowDeleteModal(false);
-  }
-    setShowDeleteModal(false);
-
+    try {
+      await axios.delete(`/api/tasks/${taskToDelete._id}`);
+      setTasks(tasks.filter(t => t._id !== taskToDelete._id));
+      setShowDeleteModal(false);
+      setTaskToDelete(null)
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    } finally {
+      setShowDeleteModal(false); // Fixed: moved to finally block to ensure it always runs
+    }
   };
 
   const handleViewBids = (taskId) => {
@@ -91,7 +88,9 @@ console.log(tasks)
     alert(`Viewing bids for task ID: ${taskId}`);
     // Example: navigate(`/task/${taskId}/bids`);
   };
-  if(loading) return <Loading />
+
+  if (loading) return <Loading />
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Main Content */}
@@ -103,8 +102,8 @@ console.log(tasks)
             <p className="text-gray-600">Manage and track all your posted tasks</p>
           </div>
           <button
-            onClick={() => navigator('/add-tasks')}
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white    font-medium hover:bg-blue-700 transition-colors duration-200"
+            onClick={() => navigate('/add-tasks')} // Fixed: updated variable name
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 transition-colors duration-200" // Fixed: added 'rounded' class
           >
             <Plus className="h-5 w-5 mr-2" />
             Add New Task
@@ -113,9 +112,9 @@ console.log(tasks)
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white border border-gray-200 shadow-sm p-6">
+          <div className="bg-white border border-gray-200 rounded shadow-sm p-6"> {/* Fixed: added 'rounded' class */}
             <div className="flex items-center">
-              <div className="p-2 bg-blue-100   ">
+              <div className="p-2 bg-blue-100 rounded"> {/* Fixed: added 'rounded' class */}
                 <Eye className="h-6 w-6 text-blue-600" />
               </div>
               <div className="ml-4">
@@ -124,9 +123,9 @@ console.log(tasks)
               </div>
             </div>
           </div>
-          <div className="bg-white border border-gray-200 shadow-sm p-6">
+          <div className="bg-white border border-gray-200 rounded shadow-sm p-6"> {/* Fixed: added 'rounded' class */}
             <div className="flex items-center">
-              <div className="p-2 bg-green-100   ">
+              <div className="p-2 bg-green-100 rounded"> {/* Fixed: added 'rounded' class */}
                 <Eye className="h-6 w-6 text-green-600" />
               </div>
               <div className="ml-4">
@@ -135,20 +134,20 @@ console.log(tasks)
               </div>
             </div>
           </div>
-          <div className="bg-white border border-gray-200 shadow-sm p-6">
+          <div className="bg-white border border-gray-200 rounded shadow-sm p-6"> {/* Fixed: added 'rounded' class */}
             <div className="flex items-center">
-              <div className="p-2 bg-purple-100   ">
+              <div className="p-2 bg-purple-100 rounded"> {/* Fixed: added 'rounded' class */}
                 <Users className="h-6 w-6 text-purple-600" />
               </div>
               <div className="ml-4">
-                <h3 className="text-2xl font-bold text-gray-900">{tasks.reduce((sum, task) => sum + task.bidsCount || 0, 0)}</h3>
+                <h3 className="text-2xl font-bold text-gray-900">{tasks.reduce((sum, task) => sum + (task.bidsCount || 0), 0)}</h3> {/* Fixed: added parentheses for precedence */}
                 <p className="text-gray-600 text-sm">Total Bids</p>
               </div>
             </div>
           </div>
-          <div className="bg-white border border-gray-200 shadow-sm p-6">
+          <div className="bg-white border border-gray-200 rounded shadow-sm p-6"> {/* Fixed: added 'rounded' class */}
             <div className="flex items-center">
-              <div className="p-2 bg-gray-100   ">
+              <div className="p-2 bg-gray-100 rounded"> {/* Fixed: added 'rounded' class */}
                 <Eye className="h-6 w-6 text-gray-600" />
               </div>
               <div className="ml-4">
@@ -160,7 +159,7 @@ console.log(tasks)
         </div>
 
         {/* Filters */}
-        <div className="bg-white    shadow-sm border border-gray-200 p-4 mb-6">
+        <div className="bg-white rounded shadow-sm border border-gray-200 p-4 mb-6"> {/* Fixed: added 'rounded' class */}
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Search */}
             <div className="flex-1 relative">
@@ -170,7 +169,7 @@ console.log(tasks)
                 placeholder="Search tasks..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 shadow-sm shadow-sm-gray-300    focus:ring-2 focus:ring-blue-500 focus:border shadow-sm-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent" // Fixed: corrected class names
               />
             </div>
 
@@ -180,7 +179,7 @@ console.log(tasks)
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full sm:w-48 pl-10 pr-8 py-2 shadow-sm border shadow-sm-gray-300    focus:ring-2 focus:ring-blue-500 focus:border border-gray-200 shadow-sm-transparent appearance-none bg-white"
+                className="w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-200 rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white" // Fixed: corrected class names
               >
                 {statusOptions.map(status => (
                   <option key={status} value={status}>
@@ -195,144 +194,147 @@ console.log(tasks)
 
         {/* Tasks Table */}
         {
-        loading ? <Loading /> :
-            <div className="bg-white border border-gray-200 shadow-sm overflow-hidden">
-            {filteredTasks.length === 0 ? (
+          loading ? <Loading /> :
+            <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden"> {/* Fixed: added 'rounded' class */}
+              {filteredTasks.length === 0 ? (
                 <div className="text-center py-12">
-                <div className="text-gray-400 mb-4">
+                  <div className="text-gray-400 mb-4">
                     <Eye className="h-12 w-12 mx-auto" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
-                <p className="text-gray-600 mb-4">
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
+                  <p className="text-gray-600 mb-4">
                     {tasks.length === 0
-                    ? "You haven't posted any tasks yet. Start by creating your first task!"
-                    : "Try adjusting your filters to see more results."
+                      ? "You haven't posted any tasks yet. Start by creating your first task!"
+                      : "Try adjusting your filters to see more results."
                     }
-                </p>
-                {tasks.length === 0 && (
+                  </p>
+                  {tasks.length === 0 && (
                     <button
-                    onClick={() => navigator('/add-tasks')}
-                    className="inline-flex items-center px-4 py-2 bg-blue-600 text-white    font-medium hover:bg-blue-700"
+                      onClick={() => navigate('/add-tasks')} // Fixed: updated variable name
+                      className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700" // Fixed: added 'rounded' class
                     >
-                    <Plus className="h-5 w-5 mr-2" />
-                    Post Your First Task
+                      <Plus className="h-5 w-5 mr-2" />
+                      Post Your First Task
                     </button>
-                )}
+                  )}
                 </div>
-            ) : (
+              ) : (
                 <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
+                  <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
-                    <tr>
+                      <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Task Details
+                          Task Details
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Budget
+                          Budget
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Deadline
+                          Deadline
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status & Stats
+                          Status & Stats
                         </th>
                         <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
+                          Actions
                         </th>
-                    </tr>
+                      </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                    {filteredTasks.map((task) => (
+                      {filteredTasks.map((task) => (
                         <tr key={task._id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4">
+                          <td className="px-6 py-4">
                             <div>
-                            <div className="text-sm font-medium text-gray-900 mb-1">
+                              <div className="text-sm font-medium text-gray-900 mb-1">
                                 {task.title}
-                            </div>
-                            <div className="text-sm text-gray-500 mb-2">
+                              </div>
+                              <div className="text-sm text-gray-500 mb-2">
                                 {task.category}
-                            </div>
-                            <div className="text-xs text-gray-400">
+                              </div>
+                              <div className="text-xs text-gray-400">
                                 Posted {task.postedDate}
+                              </div>
                             </div>
-                            </div>
-                        </td>
-                        <td className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <div className="flex items-center text-sm">
-                            <DollarSign className="h-4 w-4 text-gray-400 mr-1" />
-                            <span className="font-medium text-gray-900">
+                              <DollarSign className="h-4 w-4 text-gray-400 mr-1" />
+                              <span className="font-medium text-gray-900">
                                 {task.budget}
-                            </span>
+                              </span>
                             </div>
-                        </td>
-                        <td className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <div className="flex items-center text-sm text-gray-900">
-                            <Calendar className="h-4 w-4 text-gray-400 mr-2" />
-                            {task.deadline}
+                              <Calendar className="h-4 w-4 text-gray-400 mr-2" />
+                              {task.deadline}
                             </div>
-                        </td>
-                        <td className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <div className="space-y-2">
-                            {task.status}
-                            <div className="flex items-center space-x-4 text-xs text-gray-500">
+                              <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800"> {/* Fixed: added proper status styling */}
+                                {task.status}
+                              </span>
+                              <div className="flex items-center space-x-4 text-xs text-gray-500">
                                 <div className="flex items-center">
-                                <Users className="h-3 w-3 mr-1" />
-                                {task.bidsCount} bids
+                                  <Users className="h-3 w-3 mr-1" />
+                                  {task.bidsCount || 0} bids {/* Fixed: added fallback for undefined */}
                                 </div>
                                 <div className="flex items-center">
-                                <Eye className="h-3 w-3 mr-1" />
-                                {task.viewsCount} views
+                                  <Eye className="h-3 w-3 mr-1" />
+                                  {task.viewsCount || 0} views {/* Fixed: added fallback for undefined */}
                                 </div>
+                              </div>
                             </div>
-                            </div>
-                        </td>
-                        <td className="px-6 py-4 text-right">
+                          </td>
+                          <td className="px-6 py-4 text-right">
                             <div className="flex items-center justify-end space-x-2">
-                            <button
+                              <button
                                 onClick={() => handleUpdate(task._id)}
-                                className="inline-flex items-center px-3 py-1 border border-gray-200 shadow-sm shadow-sm-gray-300 rounded text-xs font-medium text-gray-700 bg-white hover:bg-gray-50"
+                                className="inline-flex items-center px-3 py-1 border border-gray-200 rounded text-xs font-medium text-gray-700 bg-white hover:bg-gray-50" // Fixed: corrected class names
                                 title="Update Task"
-                            >
+                              >
                                 <Edit className="h-3 w-3 mr-1" />
                                 Update
-                            </button>
-                            <button
+                              </button>
+                              <button
                                 onClick={() => handleDelete(task)}
-                                className="inline-flex items-center px-3 py-1 border border-gray-200 shadow-sm shadow-sm-red-300 rounded text-xs font-medium text-red-700 bg-white hover:bg-red-50"
+                                className="inline-flex items-center px-3 py-1 border border-red-200 rounded text-xs font-medium text-red-700 bg-white hover:bg-red-50" // Fixed: corrected class names
                                 title="Delete Task"
-                            >
+                              >
                                 <Trash2 className="h-3 w-3 mr-1" />
                                 Delete
-                            </button>
-                            <button
-                                onClick={() => handleViewBids(task.id)}
+                              </button>
+                              <button
+                                onClick={() => handleViewBids(task._id)} // Fixed: use _id instead of id
                                 className="inline-flex items-center px-3 py-1 bg-blue-600 rounded text-xs font-medium text-white hover:bg-blue-700"
                                 title="View Bids"
-                            >
+                              >
                                 <Users className="h-3 w-3 mr-1" />
-                                Bids ({task.bidsCount})
-                            </button>
+                                Bids ({task.bidsCount || 0}) {/* Fixed: added fallback for undefined */}
+                              </button>
                             </div>
-                        </td>
+                          </td>
                         </tr>
-                    ))}
+                      ))}
                     </tbody>
-                </table>
+                  </table>
                 </div>
-            )}
+              )}
             </div>
         }
       </main>
 
       {/* Delete Confirmation Modal */}
-      {showDeleteModal && taskToDelete &&
+      {showDeleteModal && taskToDelete && (
         <Modal
-            taskToDelete={taskToDelete}
-            setShowDeleteModal={setShowDeleteModal}
-            confirmDelete={confirmDelete}
+          taskToDelete={taskToDelete}
+          setShowDeleteModal={setShowDeleteModal}
+          confirmDelete={confirmDelete}
         />
-        }
+      )}
     </div>
   )
 }
+
 export default MyPostedTasks;

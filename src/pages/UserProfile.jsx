@@ -5,7 +5,7 @@ import { AuthContext } from '../provider/AuthProvider';
 import { useParams } from 'react-router';
 
 export default function UserProfile() {
-  const { user } = use(AuthContext);
+  const { user, updateUser } = use(AuthContext);
   const { email } = useParams()
 
   const [isEditing, setIsEditing] = useState(false);
@@ -27,6 +27,7 @@ export default function UserProfile() {
     }, [])
 
   const [editedProfile, setEditedProfile] = useState({ ...profile });
+  const [editedProfileForFirebase, setEditedProfileForFirebase] = useState({});
   const [newSkill, setNewSkill] = useState("");
 
   const handleEdit = () => {
@@ -36,6 +37,29 @@ export default function UserProfile() {
 
   const handleSave = () => {
     setProfile({ ...editedProfile });
+
+    axios.patch(`http://localhost:3000/api/user/${email}`, editedProfile)
+      .then(response => {
+        console.log("Profile updated successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("Error updating profile:", error);
+      });
+    setEditedProfileForFirebase({
+        photoURL: editedProfile.avatar,
+        displayName: editedProfile.name,
+     });
+
+    updateUser(editedProfileForFirebase)
+        .then(() => {
+            console.log("User profile updated successfully");
+            console.log(user)
+        }
+        )
+        .catch(error => {
+            console.error("Error updating user profile:", error);
+        });
+
     setIsEditing(false);
   };
 

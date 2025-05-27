@@ -207,7 +207,7 @@ const BrowseTasks = () => {
                     </div>
                     <div className="flex items-center text-sm text-gray-500">
                       <User className="h-4 w-4 mr-2" />
-                      <span>Posted by {task.postedBy}</span>
+                      <span>Posted by {task.userInfo.name}</span>
                     </div>
                   </div>
 

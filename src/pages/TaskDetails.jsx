@@ -208,12 +208,12 @@ const TaskDetails = () => {
 
               <div className="flex items-center mb-4">
                 <img
-                  src={task.posterInfo?.avatar}
-                  alt={task.posterInfo?.name}
+                  src={task.userInfo?.avatar}
+                  alt={task.userInfo?.name}
                   className="w-12 h-12 rounded-full mr-3"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900">{task.posterInfo?.name}</h4>
+                  <h4 className="font-semibold text-gray-900">{task.userInfo?.name}</h4>
                   <div className="flex items-center">
                     <Star className="h-4 w-4 text-yellow-400 mr-1" />
                     <span className="text-sm text-gray-600">
@@ -227,13 +227,11 @@ const TaskDetails = () => {
                 <div className="flex justify-between">
                   <span>Member since:</span>
                   <span className="font-medium">
-                    {task.posterInfo?.memberSince
-                      ? new Date(task.posterInfo.memberSince).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
-                      : ''}
+                    {task.userInfo?.memberSince}
                   </span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600">{task.posterInfo?.bio}</p>
+              <p className="text-sm text-gray-600">{task.userInfo?.bio}</p>
             </div>
           </div>
         </div>

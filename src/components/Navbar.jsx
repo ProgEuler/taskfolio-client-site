@@ -2,6 +2,7 @@ import React, { use, useState } from 'react';
 import { Menu, X, Lock, LogOut } from 'lucide-react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
+import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -51,7 +52,7 @@ const Navbar = () => {
                 <NavLink to={'/'}>Home</NavLink>
                 <NavLink to={'/add-tasks'}>Add Task</NavLink>
                 <NavLink to={'/browse-tasks'}>Browse Tasks</NavLink>
-                <NavLink to={'/my-posted-tasks'}>My Posted Tasks</NavLink>
+                <NavLink to={'/my-posted-tasks'}>Posted Tasks</NavLink>
               {/* Login/Signup Button */}
                 <div className="flex">
             {
@@ -62,10 +63,13 @@ const Navbar = () => {
                             navigate('/user/' + user.email)
                         }
                         className="flex items-center gap-1 rounded-lg">
-                        <div className="tooltip tooltip-bottom"
-                            data-tip={user.name}>
-                            <img src={user.photoURL} alt="User"
-                                className="size-9 rounded-full overflow-hidden border-3 border-blue-600" />
+                        <div className="tooltip tooltip-bottom "
+                            data-tip={user.displayName}>
+
+                            <img src={user.photoURL}
+                                 alt="User"
+                                 title={user.displayName}
+                                className="size-9 rounded-full overflow-hidden border-3 border-blue-600 object-cover" />
                             </div>
                         </button>
                     <button

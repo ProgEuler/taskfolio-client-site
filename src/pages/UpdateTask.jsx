@@ -15,7 +15,7 @@ const UpdateTask = () => {
   const [showLoading, setShowLoading] = useState(true)
 
     useEffect( () => {
-        axios.get(`/api/tasks/${id}`)
+        axios.get(`/https://taskfolio-server-site.vercel.app/api/tasks/${id}`)
         .then((res) => {
             setFormData(res.data)
             setShowLoading(false)
@@ -51,7 +51,7 @@ const UpdateTask = () => {
     try {
       setUpdating(true);
 
-      axios.patch(`/api/tasks/${id}`, formData)
+      axios.patch(`/https://taskfolio-server-site.vercel.app/api/tasks/${id}`, formData)
         .then(response => {
             //console.log('Update successful:', response.data);
             setShowSuccessAlert(true)

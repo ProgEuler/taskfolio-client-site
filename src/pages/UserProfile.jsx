@@ -15,7 +15,7 @@ export default function UserProfile() {
 
         //console.log("Fetching profile for user:", email);
          // Fetch profile data from the API
-        axios.get(`/api/users/${email}`)
+        axios.get(`https://taskfolio-server-site.vercel.app/api/users/${email}`)
             .then(response => {
                 setProfile(response.data);
                 //console.log("Profile data fetched:", response.data);
@@ -37,7 +37,7 @@ export default function UserProfile() {
   const handleSave = () => {
     setProfile({ ...editedProfile });
 
-    axios.patch(`/api/user/${email}`, editedProfile)
+    axios.patch(`https://taskfolio-server-site.vercel.app/api/user/${email}`, editedProfile)
       .then(response => {
         //console.log("Profile updated successfully:", response.data);
       })

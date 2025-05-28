@@ -84,7 +84,7 @@ const Signup = () => {
 
             //console.log(user)
 
-            axios.post('/api/users', userInfo)
+            axios.post('https://taskfolio-server-site.vercel.app/api/users', userInfo)
                 .then(response => {
                     //console.log("User created successfully:", response.data);
                     setName('');

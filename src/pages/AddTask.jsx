@@ -63,7 +63,7 @@ const AddTask = () => {
 
       setIsLoading(true);
       try {
-        const response = await axios.get(`/api/users/${user.email}`);
+        const response = await axios.get(`https://taskfolio-server-site.vercel.app/api/users/${user.email}`);
         setUserDetails(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -144,7 +144,7 @@ const AddTask = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post('/api/tasks', formData);
+      const response = await axios.post('/https://taskfolio-server-site.vercel.app/api/tasks', formData);
       //console.log('Task created successfully:', response.data);
 
       setShowSuccessAlert(true);

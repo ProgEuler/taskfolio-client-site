@@ -15,7 +15,7 @@ const BrowseTasks = () => {
   const navigator = useNavigate()
 
     useEffect( () => {
-        axios.get('/api/tasks')
+        axios.get('/https://taskfolio-server-site.vercel.app/api/tasks')
         .then((res) => {
             setTasks(res.data)
             setLoading(false)

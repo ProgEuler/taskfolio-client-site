@@ -25,7 +25,7 @@ const MyPostedTasks = () => {
   const statusOptions = ['all', 'Active', 'In Progress', 'Completed', 'Paused'];
   //console.log(currentUser)
   useEffect(() => {
-    axios.get('/api/tasks')
+    axios.get('/https://taskfolio-server-site.vercel.app/api/tasks')
       .then((res) => {
         //console.log(res.data)
         setTasks(res.data.filter(task => task.userInfo.email === currentUser.email))
@@ -72,7 +72,7 @@ const MyPostedTasks = () => {
     if (!taskToDelete) return; // Fixed: added null check
 
     try {
-      await axios.delete(`/api/tasks/${taskToDelete._id}`);
+      await axios.delete(`/https://taskfolio-server-site.vercel.app/api/tasks/${taskToDelete._id}`);
       setTasks(tasks.filter(t => t._id !== taskToDelete._id));
       setShowDeleteModal(false);
       setTaskToDelete(null)

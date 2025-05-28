@@ -10,6 +10,7 @@ import TaskDetails from "../pages/TaskDetails";
 import UpdateTask from "../pages/UpdateTask";
 import ErrorPage from "../pages/ErrorPage";
 import UserProfile from "../pages/UserProfile";
+import PrivateRoute from "../provider/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,10 @@ export const router = createBrowserRouter([
         },
         {
             path: '/add-tasks',
-            element: <AddTask />
+            element:
+            <PrivateRoute>
+                <AddTask />
+            </PrivateRoute>
         },
         {
             path: '/browse-tasks',
@@ -39,7 +43,10 @@ export const router = createBrowserRouter([
         },
         {
             path: '/my-posted-tasks',
-            element: <MyPostedTasks />
+            element:
+            <PrivateRoute>
+                <MyPostedTasks />
+            </PrivateRoute>
         },
         {
             path: '/login',
@@ -51,7 +58,10 @@ export const router = createBrowserRouter([
         },
         {
             path: '/user/:email',
-            element: <UserProfile />
+            element:
+            <PrivateRoute>
+                <UserProfile />
+            </PrivateRoute>
         }
     ]
   }

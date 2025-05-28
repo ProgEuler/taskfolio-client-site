@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
     server:{
         proxy: {
-            '/api': 'https://taskfolio-server-site.vercel.app/'
+            '/api': 'https://taskfolio-server-site.vercel.app'
         }
     },
   plugins: [react(), tailwindcss()],

@@ -15,7 +15,7 @@ export default function UserProfile() {
 
         console.log("Fetching profile for user:", email);
          // Fetch profile data from the API
-        axios.get(`/api/user/${email}`)
+        axios.get(`/api/users/${email}`)
             .then(response => {
                 setProfile(response.data);
                 console.log("Profile data fetched:", response.data);
@@ -108,7 +108,6 @@ export default function UserProfile() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">My Profile</h1>
-          <p className="text-gray-600">Manage your profile information</p>
         </div>
         <div className="flex space-x-3">
           {!isEditing ? (
@@ -139,57 +138,6 @@ export default function UserProfile() {
           )}
         </div>
       </div>
-
-      {/* Stats Cards */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Eye className="h-6 w-6 text-blue-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-2xl font-semibold text-gray-900">{profile.tasksPosted}</p>
-              <p className="text-gray-600">Tasks Posted</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <CheckCircle className="h-6 w-6 text-green-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-2xl font-semibold text-gray-900">{profile.tasksCompleted}</p>
-              <p className="text-gray-600">Tasks Completed</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center">
-            <div className="p-3 bg-purple-100 rounded-lg">
-              <User className="h-6 w-6 text-purple-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-2xl font-semibold text-gray-900">{profile.completedProjects}</p>
-              <p className="text-gray-600">Projects</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center">
-            <div className="p-3 bg-yellow-100 rounded-lg">
-              <Star className="h-6 w-6 text-yellow-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-2xl font-semibold text-gray-900">{profile.rating}</p>
-              <p className="text-gray-600">Rating</p>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       {/* Main Profile Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

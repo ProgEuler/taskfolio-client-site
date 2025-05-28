@@ -98,8 +98,7 @@ const MyPostedTasks = () => {
         {/* Page Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">My Posted Tasks</h1>
-            <p className="text-gray-600">Manage and track all your posted tasks</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Posted Tasks</h1>
           </div>
           <button
             onClick={() => navigate('/add-tasks')} // Fixed: updated variable name
@@ -112,48 +111,10 @@ const MyPostedTasks = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white border border-gray-200 rounded shadow-sm p-6"> {/* Fixed: added 'rounded' class */}
+          <div className="bg-white border border-gray-200 rounded shadow-sm p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-blue-100 rounded"> {/* Fixed: added 'rounded' class */}
-                <Eye className="h-6 w-6 text-blue-600" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-2xl font-bold text-gray-900">{tasks.length}</h3>
                 <p className="text-gray-600 text-sm">Total Tasks</p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white border border-gray-200 rounded shadow-sm p-6"> {/* Fixed: added 'rounded' class */}
-            <div className="flex items-center">
-              <div className="p-2 bg-green-100 rounded"> {/* Fixed: added 'rounded' class */}
-                <Eye className="h-6 w-6 text-green-600" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-2xl font-bold text-gray-900">{tasks.filter(t => t.status === 'Active').length}</h3>
-                <p className="text-gray-600 text-sm">Active Tasks</p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white border border-gray-200 rounded shadow-sm p-6"> {/* Fixed: added 'rounded' class */}
-            <div className="flex items-center">
-              <div className="p-2 bg-purple-100 rounded"> {/* Fixed: added 'rounded' class */}
-                <Users className="h-6 w-6 text-purple-600" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-2xl font-bold text-gray-900">{tasks.reduce((sum, task) => sum + (task.bids || 0), 0)}</h3> {/* Fixed: added parentheses for precedence */}
-                <p className="text-gray-600 text-sm">Total Bids</p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white border border-gray-200 rounded shadow-sm p-6"> {/* Fixed: added 'rounded' class */}
-            <div className="flex items-center">
-              <div className="p-2 bg-gray-100 rounded"> {/* Fixed: added 'rounded' class */}
-                <Eye className="h-6 w-6 text-gray-600" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-2xl font-bold text-gray-900">{tasks.filter(t => t.status === 'Completed').length}</h3>
-                <p className="text-gray-600 text-sm">Completed</p>
-              </div>
+                <h3 className="ml-4 text-2xl font-bold text-gray-900">{tasks.length}</h3>
             </div>
           </div>
         </div>
@@ -173,22 +134,6 @@ const MyPostedTasks = () => {
               />
             </div>
 
-            {/* Status Filter */}
-            <div className="relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-200 rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white" // Fixed: corrected class names
-              >
-                {statusOptions.map(status => (
-                  <option key={status} value={status}>
-                    {status === 'all' ? 'All Status' : status}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 pointer-events-none" />
-            </div>
           </div>
         </div>
 
@@ -232,10 +177,7 @@ const MyPostedTasks = () => {
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Deadline
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Status & Stats
-                        </th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
@@ -252,7 +194,7 @@ const MyPostedTasks = () => {
                                 {task.category}
                               </div>
                               <div className="text-xs text-gray-400">
-                                Posted {task.postedDate}
+                                Posted on {task.postedDate}
                               </div>
                             </div>
                           </td>
@@ -268,19 +210,6 @@ const MyPostedTasks = () => {
                             <div className="flex items-center text-sm text-gray-900">
                               <Calendar className="h-4 w-4 text-gray-400 mr-2" />
                               {task.deadline}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <div className="space-y-2">
-                              <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800"> {/* Fixed: added proper status styling */}
-                                {task.status}
-                              </span>
-                              <div className="flex items-center space-x-4 text-xs text-gray-500">
-                                <div className="flex items-center">
-                                  <Users className="h-3 w-3 mr-1" />
-                                  {task.bids || 0} bids {/* Fixed: added fallback for undefined */}
-                                </div>
-                              </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 text-right">

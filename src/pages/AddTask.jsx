@@ -34,6 +34,7 @@ const INITIAL_FORM_DATA = {
   deadline: '',
   budget: '',
   bids: 0,
+  postedDate: new Date().toISOString().split('T')[0],
   userInfo: {
     name: '',
     email: '',
@@ -62,7 +63,7 @@ const AddTask = () => {
 
       setIsLoading(true);
       try {
-        const response = await axios.get(`/api/user/${user.email}`);
+        const response = await axios.get(`/api/users/${user.email}`);
         setUserDetails(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -153,6 +154,7 @@ const AddTask = () => {
       setTimeout(() => {
         setShowSuccessAlert(false);
       }, 3000);
+      console.log(formData.postedDate)
 
     } catch (error) {
       console.error('Error submitting task:', error);

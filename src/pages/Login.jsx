@@ -1,12 +1,13 @@
 import React, { use, useState } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import Loading from '../components/Loading';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Error from '../components/Error';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
 
-  const { user, logIn } = use(AuthContext)
+  const { logIn } = use(AuthContext)
   const navigator = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,6 +15,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [showError, setShowError] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans">
+    <div className="md:h-[700px] py-10 flex items-center justify-center bg-gray-50 p-4 font-sans">
       <div className="bg-white p-8   shadow-md w-full max-w-md border border-gray-200">
         { showError && <Error message={error} /> }
         { loading && <Loading /> }
@@ -68,15 +70,26 @@ const Login = () => {
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className='relative'>
+                <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+            </div>
+
           </div>
 
           <div className="flex items-center justify-between">
@@ -109,9 +122,9 @@ const Login = () => {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}
-            <a href="#" className="font-medium text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out">
+            <Link to={'/signup'} className="font-medium text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out">
               Sign Up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

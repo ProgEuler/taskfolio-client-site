@@ -11,10 +11,7 @@
 button{
     cursor: pointer;
 }
-/* div {
-    /* background-color: black; */
-  /* background-color: #fff; */
- */
+
 input, select, textarea{
     outline: none;
 }

@@ -3,6 +3,7 @@ import React, { useState, useEffect, use } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import Success from '../components/Success';
 import { AuthContext } from '../provider/AuthProvider';
+import  Loading  from '../components/Loading';
 
 const UpdateTask = () => {
   const { id } = useParams()
@@ -11,12 +12,13 @@ const UpdateTask = () => {
   const [formData, setFormData] = useState({})
   const [updating, setUpdating] = useState(false)
   const [showSuccessAlert, setShowSuccessAlert] = useState(false)
+  const [showLoading, setShowLoading] = useState(true)
 
     useEffect( () => {
-
         axios.get(`/api/tasks/${id}`)
         .then((res) => {
             setFormData(res.data)
+            setShowLoading(false)
         })
         .catch((err) => {
             console.log(err)
@@ -67,6 +69,10 @@ const UpdateTask = () => {
       setUpdating(false);
     }
   };
+
+  if (showLoading) {
+      return <Loading />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">

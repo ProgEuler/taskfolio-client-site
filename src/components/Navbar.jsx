@@ -99,7 +99,6 @@ const Navbar = () => {
 
                             <img src={user.photoURL}
                                  alt="User"
-                                 title={user.displayName}
                                 className="size-9 rounded-full overflow-hidden border-3 border-blue-600 object-cover" />
                             </div>
                         </button>

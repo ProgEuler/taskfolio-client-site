@@ -5,7 +5,7 @@ import MyPostedTasks from "../pages/MyPostedTasks";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Root from "../Root";
-import Home from "../pages/home";
+import Home from "../pages/Home";
 import TaskDetails from "../pages/TaskDetails";
 import UpdateTask from "../pages/UpdateTask";
 import ErrorPage from "../pages/ErrorPage";

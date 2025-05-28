@@ -4,7 +4,7 @@ import BrowseTasks from "../pages/BrowseTasks";
 import MyPostedTasks from "../pages/MyPostedTasks";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import Root from "../root";
+import Root from "../Root";
 import Home from "../pages/home";
 import TaskDetails from "../pages/TaskDetails";
 import UpdateTask from "../pages/UpdateTask";

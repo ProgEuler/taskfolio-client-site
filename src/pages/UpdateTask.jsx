@@ -14,7 +14,7 @@ const UpdateTask = () => {
 
     useEffect( () => {
 
-        axios.get(`http://localhost:3000/api/tasks/${id}`)
+        axios.get(`/api/tasks/${id}`)
         .then((res) => {
             setFormData(res.data)
         })
@@ -49,7 +49,7 @@ const UpdateTask = () => {
     try {
       setUpdating(true);
 
-      axios.patch(`http://localhost:3000/api/tasks/${id}`, formData)
+      axios.patch(`/api/tasks/${id}`, formData)
         .then(response => {
             console.log('Update successful:', response.data);
             setShowSuccessAlert(true)

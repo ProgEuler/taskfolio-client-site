@@ -1,8 +1,7 @@
-import React, { use, useState } from 'react';
-import { Menu, X, Lock, LogOut } from 'lucide-react';
+import React, { use, useEffect, useState } from 'react';
+import { Menu, X, Lock, LogOut, Sun, Moon } from 'lucide-react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
-import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -11,6 +10,38 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // const [isDark, setIsDark] = useState(false);
+
+    const [theme, setTheme] = useState(
+    localStorage.getItem("theme") === "light" ? "light" : "dark"
+    );
+
+    // Load theme from localStorage on component mount
+    useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    setTheme(savedTheme);
+    document.querySelector("html").setAttribute("data-theme", savedTheme);
+    }, [theme]);
+
+    // Toggle theme function
+    const handleThemeChange = (event) => {
+    const newTheme = event.target.checked ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    };
+
+  // Apply theme to document body
+//   useEffect(() => {
+//     if (isDark) {
+//       document.body.classList.add('dark');
+//     } else {
+//       document.body.classList.remove('dark');
+//     }
+//   }, [isDark]);
+
+//   const toggleTheme = () => {
+//     setIsDark(!isDark);
+//   };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -105,7 +136,42 @@ const Navbar = () => {
                 )
             }
 
-                </div>
+            </div>
+
+        {/* Toggle Button */}
+          {/* <button
+            onClick={toggleTheme}
+            className={`relative p-3 rounded-full transition-all duration-300 transform hover:scale-105 focus:outline-none ${
+              isDark
+                ? 'focus:ring-blue-800 text-gray-700'
+                : 'focus:ring-blue-300 text-gray-700'
+            } ${
+            pathname === '/'
+                ? "bg-transparent text-white/80 rounded-xl"
+                : 'bg-white/5'
+            }`}
+            aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+          >
+
+              <Sun
+                className={`absolute inset-0 w-6 h-6 transition-all duration-300 ${
+                  isDark ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
+                }`}
+              />
+              <Moon
+                className={`absolute inset-0 w-6 h-6 transition-all duration-300 ${
+                  isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+                }`}
+              />
+
+          </button> */}
+          <input
+            type="checkbox"
+            value="dark"
+            className="toggle theme-controller mr-6"
+            checked={theme === "dark"}
+            onChange={handleThemeChange}
+            />;
             </div>
           </div>
 

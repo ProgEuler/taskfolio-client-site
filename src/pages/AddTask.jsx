@@ -62,7 +62,7 @@ const AddTask = () => {
 
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:3000/api/user/${user.email}`);
+        const response = await axios.get(`/api/user/${user.email}`);
         setUserDetails(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -190,7 +190,7 @@ const AddTask = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-12">
       {/* Success Alert */}
       {showSuccessAlert && <Success message="Task Added Successfully" />}
 

@@ -1,4 +1,9 @@
 @import 'tailwindcss';
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 .active{
     border-bottom: 1px solid;
@@ -6,9 +11,10 @@
 button{
     cursor: pointer;
 }
-body {
-  background-color: #fff; /* or your desired background */
-}
+/* div {
+    /* background-color: black; */
+  /* background-color: #fff; */
+ */
 input, select, textarea{
     outline: none;
 }

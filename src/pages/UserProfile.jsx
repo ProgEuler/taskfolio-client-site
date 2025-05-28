@@ -15,7 +15,7 @@ export default function UserProfile() {
 
         console.log("Fetching profile for user:", email);
          // Fetch profile data from the API
-        axios.get(`http://localhost:3000/api/user/${email}`)
+        axios.get(`/api/user/${email}`)
             .then(response => {
                 setProfile(response.data);
                 console.log("Profile data fetched:", response.data);
@@ -38,7 +38,7 @@ export default function UserProfile() {
   const handleSave = () => {
     setProfile({ ...editedProfile });
 
-    axios.patch(`http://localhost:3000/api/user/${email}`, editedProfile)
+    axios.patch(`/api/user/${email}`, editedProfile)
       .then(response => {
         console.log("Profile updated successfully:", response.data);
       })

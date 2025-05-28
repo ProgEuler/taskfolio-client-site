@@ -80,10 +80,10 @@ const Signup = () => {
                 displayName: name,
                 photoURL: photoURL || 'https://img.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-2210.jpg?semt=ais_hybrid&w=740'
             })
-            
+
             console.log(user)
 
-            axios.post('http://localhost:3000/api/users', userInfo)
+            axios.post('/api/users', userInfo)
                 .then(response => {
                     console.log("User created successfully:", response.data);
                     setName('');

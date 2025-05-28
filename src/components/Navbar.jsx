@@ -38,11 +38,11 @@ const Navbar = () => {
   }
 
   const handleLogout = () =>{
-        // console.log("logging out")
+        // //console.log("logging out")
         navigate('/login')
         logOut()
             .then(() => {
-                // console.log("logged out")
+                // //console.log("logged out")
             })
             .catch((error) => {
                 // console.error("Error logging out:", error)
@@ -56,7 +56,7 @@ const Navbar = () => {
             : 'bg-white/5 backdrop-blur-sm rounded-xl sticky top-0'
         }`}
     >
-      <div className="w-8/12 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="xl:w-8/12 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between gap-20 items-center h-16">
           {/* Logo/Brand */}
           <div className="flex-shrink-0">
@@ -121,7 +121,7 @@ const Navbar = () => {
                 )
             }
 
-            </div>
+                </div>
 
         {/* Toggle Button */}
           <button
@@ -174,6 +174,58 @@ const Navbar = () => {
                 <NavLink to={'/add-tasks'}>Add Task</NavLink>
                 <NavLink to={'/browse-tasks'}>Browse Tasks</NavLink>
                 <NavLink to={'/my-posted-tasks'}>Posted Tasks</NavLink>
+                                <div className="flex">
+            {
+                user ?
+                (<div className='flex flex-col items-center'>
+                    <button
+                        onClick={() =>
+                            navigate('/user/' + user.email)
+                        }
+                        className="flex items-center gap-1 rounded-lg">
+                        <div className="tooltip tooltip-bottom "
+                            data-tip={user.displayName}>
+
+                            <img src={user.photoURL}
+                                 alt="User"
+                                className="size-9 rounded-full overflow-hidden border-3 border-blue-600 object-cover" />
+                            </div>
+                    </button>
+
+                    <button
+                        onClick={handleLogout}
+                        className="hover:bg-white/10 transition-colors flex items-center gap-1 px-4 py-2 rounded-lg font-semibold">
+                        <LogOut className="w-5 h-5" /> Logout
+                    </button>
+                </div>)
+
+                : (
+                <div className="flex">
+                    <button
+                            onClick={ () => navigate('/login')}
+                            className={`ml-4 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                            isLoggedIn
+                                ? 'bg-red-600 text-white hover:bg-red-700'
+                                : 'text-blue hover:bg-blue-700 hover:text-white'
+                            }`}
+                    >
+                        Login
+                    </button>
+                    <button
+                        onClick={ () => navigate('/signup')}
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                        isLoggedIn
+                            ? 'bg-red-600 text-white hover:bg-red-700'
+                            : 'text-blue hover:bg-blue-700 hover:text-white'
+                        }`}
+                    >
+                        Sign Up
+                    </button>
+                </div>
+                )
+            }
+
+                </div>
           </div>
         </div>
       )}

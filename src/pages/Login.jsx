@@ -23,13 +23,13 @@ const Login = () => {
     setLoading(true)
     logIn(email, password)
         .then((user) =>{
-            console.log('Login attempt with:', { email, password, rememberMe });
+            //console.log('Login attempt with:', { email, password, rememberMe });
             navigator('/')
-            console.log(user);
+            //console.log(user);
 
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             setShowError(true)
             setError(err.message)
             setTimeout(() => {

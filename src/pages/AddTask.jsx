@@ -145,7 +145,7 @@ const AddTask = () => {
 
     try {
       const response = await axios.post('/api/tasks', formData);
-      console.log('Task created successfully:', response.data);
+      //console.log('Task created successfully:', response.data);
 
       setShowSuccessAlert(true);
       setFormData(INITIAL_FORM_DATA);
@@ -154,7 +154,7 @@ const AddTask = () => {
       setTimeout(() => {
         setShowSuccessAlert(false);
       }, 3000);
-      console.log(formData.postedDate)
+      //console.log(formData.postedDate)
 
     } catch (error) {
       console.error('Error submitting task:', error);

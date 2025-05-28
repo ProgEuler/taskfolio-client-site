@@ -7,7 +7,7 @@ export default function Modal(
         setShowDeleteModal,
         confirmDelete
     }) {
-    console.log(taskToDelete)
+    //console.log(taskToDelete)
   return (
             <div className="fixed inset-0 bg-transparent backdrop-blur-lg flex items-center justify-center p-4 z-50">
                 <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 border border-gray-200">

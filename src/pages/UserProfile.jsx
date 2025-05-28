@@ -5,7 +5,7 @@ import { AuthContext } from '../provider/AuthProvider';
 import { useParams } from 'react-router';
 
 export default function UserProfile() {
-  const { user, updateUser, setUser } = use(AuthContext);
+  const { updateUser, setUser } = use(AuthContext);
   const { email } = useParams()
 
   const [isEditing, setIsEditing] = useState(false);
@@ -13,13 +13,13 @@ export default function UserProfile() {
     const [profile, setProfile] = useState({});
     useEffect(() => {
 
-        console.log("Fetching profile for user:", email);
+        //console.log("Fetching profile for user:", email);
          // Fetch profile data from the API
         axios.get(`/api/users/${email}`)
             .then(response => {
                 setProfile(response.data);
-                console.log("Profile data fetched:", response.data);
-                console.log(user)
+                //console.log("Profile data fetched:", response.data);
+                //console.log(user)
             })
             .catch(error => {
                 console.error("Error fetching profile data:", error);
@@ -27,7 +27,6 @@ export default function UserProfile() {
     }, [])
 
   const [editedProfile, setEditedProfile] = useState({ ...profile });
-  const [editedProfileForFirebase, setEditedProfileForFirebase] = useState({});
   const [newSkill, setNewSkill] = useState("");
 
   const handleEdit = () => {
@@ -40,7 +39,7 @@ export default function UserProfile() {
 
     axios.patch(`/api/user/${email}`, editedProfile)
       .then(response => {
-        console.log("Profile updated successfully:", response.data);
+        //console.log("Profile updated successfully:", response.data);
       })
       .catch(error => {
         console.error("Error updating profile:", error);
@@ -51,8 +50,8 @@ export default function UserProfile() {
         displayName: editedProfile.name,
      })
         .then(() => {
-            console.log("User profile updated successfully");
-            console.log(user)
+            //console.log("User profile updated successfully");
+            //console.log(user)
             setUser(prev => ({
                 ...prev,
                 photoURL: editedProfile.avatar,
@@ -90,24 +89,12 @@ export default function UserProfile() {
     }
   };
 
-  const removeSkill = (skillToRemove) => {
-    setEditedProfile(prev => ({
-      ...prev,
-      skills: prev.skills.filter(skill => skill !== skillToRemove)
-    }));
-  };
-
-//   const formatMemberSince = (dateStr) => {
-//     const [year, month] = dateStr.split('-');
-//     const date = new Date(year, month - 1);
-//     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-//   };
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-gray-50 min-h-screen">
+    <div className="max-w-6xl mx-auto p-6 bg-gray-50 dark:bg-[#292E35] min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">My Profile</h1>
+          <h1 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 dark:text-white">My Profile</h1>
         </div>
         <div className="flex space-x-3">
           {!isEditing ? (
@@ -143,7 +130,7 @@ export default function UserProfile() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Profile Info */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
+          <div className="bg-white dark:bg-[#292E35] rounded-lg border border-gray-200 p-6">
             <div className="flex items-start space-x-6 mb-6">
               <div className="relative">
                 <img
@@ -163,11 +150,11 @@ export default function UserProfile() {
                     type="text"
                     value={editedProfile.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="text-xl font-semibold text-gray-900 border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="text-xl font-semibold text-gray-700 dark:text-gray-200 border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Full Name"
                   />
                 ) : (
-                  <h2 className="text-xl font-semibold text-gray-900">{profile.name}</h2>
+                  <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">{profile.name}</h2>
                 )}
                 <div className="flex items-center space-x-1 mt-1">
                   <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -179,7 +166,7 @@ export default function UserProfile() {
 
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-2">About</h3>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">About</h3>
                 {isEditing ? (
                   <textarea
                     value={editedProfile.bio}
@@ -195,7 +182,7 @@ export default function UserProfile() {
 
               {isEditing && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900 mb-2">Avatar URL</h3>
+                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Avatar URL</h3>
                   <input
                     type="url"
                     value={editedProfile.avatar}
@@ -212,8 +199,8 @@ export default function UserProfile() {
         {/* Skills & Stats */}
         <div className="space-y-6">
           {/* Skills */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-sm font-medium text-gray-900 mb-4">Skills</h3>
+          <div className="bg-white dark:bg-[#292E35] rounded-lg border border-gray-200 p-6">
+            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-4">Skills</h3>
             <div className="space-y-2">
 
               { editedProfile.skills && editedProfile.skills.length > 0 ? (
@@ -249,8 +236,8 @@ export default function UserProfile() {
          </div>
 
           {/* Additional Stats */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-sm font-medium text-gray-900 mb-4">Statistics</h3>
+          <div className="bg-white dark:bg-[#292E35] rounded-lg border border-gray-200 p-6">
+            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-4">Statistics</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-sm text-gray-600">Member Since</span>
@@ -259,10 +246,10 @@ export default function UserProfile() {
                     type="month"
                     value={profile.memberSince}
                     readOnly
-                    className="text-sm font-medium text-gray-900 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-not-allowed"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-200 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-not-allowed"
                   />
                 ) : (
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
                     {profile.memberSince}</span>
 
                 )}
@@ -274,10 +261,10 @@ export default function UserProfile() {
                     type="number"
                     value={editedProfile.completedProjects}
                     onChange={(e) => handleInputChange('completedProjects', parseInt(e.target.value) || 0)}
-                    className="text-sm font-medium text-gray-900 border border-gray-300 rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-200 border border-gray-300 rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 ) : (
-                  <span className="text-sm font-medium text-gray-900">{profile.completedProjects}</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{profile.completedProjects}</span>
                 )}
               </div>
               <div className="flex justify-between">
@@ -287,10 +274,10 @@ export default function UserProfile() {
                     type="number"
                     value={editedProfile.tasksPosted}
                     onChange={(e) => handleInputChange('tasksPosted', parseInt(e.target.value) || 0)}
-                    className="text-sm font-medium text-gray-900 border border-gray-300 rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-200 border border-gray-300 rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 ) : (
-                  <span className="text-sm font-medium text-gray-900">{profile.tasksPosted}</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{profile.tasksPosted}</span>
                 )}
               </div>
               <div className="flex justify-between">
@@ -300,10 +287,10 @@ export default function UserProfile() {
                     type="number"
                     value={editedProfile.tasksCompleted}
                     onChange={(e) => handleInputChange('tasksCompleted', parseInt(e.target.value) || 0)}
-                    className="text-sm font-medium text-gray-900 border border-gray-300 rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-200 border border-gray-300 rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 ) : (
-                  <span className="text-sm font-medium text-gray-900">{profile.tasksCompleted}</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{profile.tasksCompleted}</span>
                 )}
               </div>
               <div className="flex justify-between">
@@ -316,10 +303,10 @@ export default function UserProfile() {
                     max="5"
                     value={editedProfile.rating}
                     onChange={(e) => handleInputChange('rating', parseFloat(e.target.value) || 0)}
-                    className="text-sm font-medium text-gray-900 border border-gray-300 rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-200 border border-gray-300 rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 ) : (
-                  <span className="text-sm font-medium text-gray-900">{profile.rating}/5</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{profile.rating}/5</span>
                 )}
               </div>
             </div>

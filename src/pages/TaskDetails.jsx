@@ -16,17 +16,17 @@ const TaskDetails = () => {
     useEffect( () => {
         axios.get('/api/tasks/' + id)
         .then((res) => {
-            console.log(res.data)
+            //console.log(res.data)
             setTask(res.data)
             setBidsCount(res.data.bids); // Assuming bidsCount is part of the task data
             setLoading(false);
         })
         .catch((err) => {
-            console.log(err)
+            //console.log(err)
             setLoading(false);
         })
     }, [id]);
-    console.log(task)
+    //console.log(task)
 
   const navigator = useNavigate()
 
@@ -53,7 +53,7 @@ const TaskDetails = () => {
     setDisableBidButton(true);
     axios.patch('/api/tasks/' + id , { bids: bidsCount + 1 })
         .then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
             }
         )
         .catch((err) => {

@@ -72,7 +72,7 @@ const Signup = () => {
       return;
     }
 
-    console.log('Registration attempt with:', { name, email, photoURL, password });
+    //console.log('Registration attempt with:', { name, email, photoURL, password });
 
     setLoading(true)
     createUser(email, confirmPassword)
@@ -82,11 +82,11 @@ const Signup = () => {
                 photoURL: photoURL || 'https://img.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-2210.jpg?semt=ais_hybrid&w=740'
             })
 
-            console.log(user)
+            //console.log(user)
 
             axios.post('/api/users', userInfo)
                 .then(response => {
-                    console.log("User created successfully:", response.data);
+                    //console.log("User created successfully:", response.data);
                     setName('');
                     setEmail('');
                     setPhotoURL('');
@@ -101,7 +101,7 @@ const Signup = () => {
                 });
 
             setShowSuccess(true)
-            console.log("user created successfully")
+            //console.log("user created successfully")
             setTimeout(() => setShowSuccess(false), 2000);
         })
         .catch((error) => {
@@ -117,7 +117,7 @@ const Signup = () => {
   }
 
   const handleGoogleLogin = () => {
-    console.log('Google Login initiated');
+    //console.log('Google Login initiated');
     googleSignIn()
   }
 

@@ -21,12 +21,12 @@ const BrowseTasks = () => {
             setLoading(false)
         })
         .catch((err) => {
-            console.log(err)
+            //console.log(err)
             setLoading(false)
         })
     }, [])
 
-    console.log(tasks)
+    //console.log(tasks)
 
   const categories = ['all', 'Web Development', 'Design', 'Writing', 'Programming', 'Marketing'];
 

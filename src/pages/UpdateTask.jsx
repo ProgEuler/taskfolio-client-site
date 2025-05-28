@@ -21,10 +21,10 @@ const UpdateTask = () => {
             setShowLoading(false)
         })
         .catch((err) => {
-            console.log(err)
+            //console.log(err)
         })
     }, [id])
-    console.log(formData)
+    //console.log(formData)
   // Categories for dropdown
   const categories = [
     'Web Development',
@@ -53,7 +53,7 @@ const UpdateTask = () => {
 
       axios.patch(`/api/tasks/${id}`, formData)
         .then(response => {
-            console.log('Update successful:', response.data);
+            //console.log('Update successful:', response.data);
             setShowSuccessAlert(true)
         })
         .catch(error => {

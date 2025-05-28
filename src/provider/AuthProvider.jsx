@@ -24,7 +24,7 @@ export default function AuthProvider({ children }) {
     })
 
     const [loading, setLoading] = useState(true)
-    // console.log(user)
+    // //console.log(user)
 
     const createUser = (email, password) => {
         setLoading(true)

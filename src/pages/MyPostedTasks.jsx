@@ -23,21 +23,21 @@ const MyPostedTasks = () => {
   };
 
   const statusOptions = ['all', 'Active', 'In Progress', 'Completed', 'Paused'];
-  console.log(currentUser)
+  //console.log(currentUser)
   useEffect(() => {
     axios.get('/api/tasks')
       .then((res) => {
-        console.log(res.data)
+        //console.log(res.data)
         setTasks(res.data.filter(task => task.userInfo.email === currentUser.email))
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         setLoading(false);
       });
   }, [currentUser.email]); // Fixed: added dependency array
 
-  console.log(tasks)
+  //console.log(tasks)
 
   useEffect(() => {
     let filtered = tasks;
@@ -63,7 +63,7 @@ const MyPostedTasks = () => {
   };
 
   const handleDelete = (task) => {
-    console.log(task) // Fixed: log the correct variable
+    //console.log(task) // Fixed: log the correct variable
     setTaskToDelete(task)
     setShowDeleteModal(true);
   };

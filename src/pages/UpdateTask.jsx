@@ -75,18 +75,19 @@ const UpdateTask = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#292E35] py-8">
       { showSuccessAlert &&  <Success message={'Task Updated Successfully'}/>}
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow-md p-6">
+        <div className="bg-white dark:bg-[#292E35] shadow-md p-6">
           <div className="mb-6">
-            <h1 className="text-2xl text-center font-bold text-gray-900">Update Task</h1>
+            <h1 className="text-2xl text-center font-bold text-gray-900 dark:text-white">
+                Update Task</h1>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Task Title */}
             <div>
-              <label htmlFor="taskTitle" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="taskTitle" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Task Title *
               </label>
               <input
@@ -103,7 +104,7 @@ const UpdateTask = () => {
 
             {/* Task Description */}
             <div>
-              <label htmlFor="taskDescription" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="taskDescription" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Task Description *
               </label>
               <textarea
@@ -120,7 +121,7 @@ const UpdateTask = () => {
 
             {/* Category */}
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Category *
               </label>
               <select
@@ -142,7 +143,7 @@ const UpdateTask = () => {
 
             {/* Deadline */}
             <div>
-              <label htmlFor="deadline" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="deadline" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Deadline *
               </label>
               <input
@@ -158,7 +159,7 @@ const UpdateTask = () => {
 
             {/* Budget */}
             <div>
-              <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="budget" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Budget ($) *
               </label>
               <input
@@ -179,7 +180,7 @@ const UpdateTask = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* User Name - Read Only */}
               <div>
-                <label htmlFor="userName" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="userName" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                   User Name
                 </label>
                 <input
@@ -187,14 +188,14 @@ const UpdateTask = () => {
                   id="userName"
                   name="userName"
                   value={user.displayName}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 dark:bg-[#292E35] cursor-not-allowed"
                   readOnly
                 />
               </div>
 
               {/* User Email - Read Only */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                   User Email
                 </label>
                 <input
@@ -202,7 +203,7 @@ const UpdateTask = () => {
                   id="userEmail"
                   name="userEmail"
                   value={user.email}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 dark:bg-[#292E35] cursor-not-allowed"
                   readOnly
                 />
               </div>
@@ -214,7 +215,7 @@ const UpdateTask = () => {
              <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="flex-1 py-2 px-4 border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                className="flex-1 py-2 px-4 border border-gray-300 rounded-md text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
               >
                 Cancel
              </button>

@@ -102,13 +102,13 @@ const BrowseTasks = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#292E35]">
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Filters and Search */}
-        <div className="bg-white  shadow-sm border border-gray-200 p-6 mb-6">
+        <div className="dark:bg-[#292E35] bg-white  shadow-sm border border-gray-200 p-6 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Search */}
             <div className="relative">
@@ -128,7 +128,7 @@ const BrowseTasks = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full pl-10 pr-8 py-2 border border-gray-200 shadow-sm shadow-sm-gray-300  focus:ring-2 focus:ring-blue-500 focus:border shadow-sm-transparent appearance-none bg-white"
+                className="w-full pl-10 pr-8 py-2 border border-gray-200 shadow-sm shadow-sm-gray-300  focus:ring-2 focus:ring-blue-500 focus:border shadow-sm-transparent appearance-none dark:bg-[#292E35] bg-white"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>
@@ -144,7 +144,7 @@ const BrowseTasks = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-200 shadow-sm shadow-sm-gray-300  focus:ring-2 focus:ring-blue-500 focus:border shadow-sm-transparent appearance-none bg-white"
+                className="w-full px-4 py-2 border border-gray-200 shadow-sm shadow-sm-gray-300  focus:ring-2 focus:ring-blue-500 focus:border shadow-sm-transparent appearance-none dark:bg-[#292E35] bg-white"
               >
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
@@ -176,7 +176,7 @@ const BrowseTasks = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredTasks.map((task) => (
-              <div key={task._id} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+              <div key={task._id} className="dark:bg-[#292E35] bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                 <div className="p-6">
                   {/* Category Badge */}
                   <div className="mb-3">
@@ -186,7 +186,7 @@ const BrowseTasks = () => {
                   </div>
 
                   {/* Task Title */}
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
                     {task.title}
                   </h3>
 
@@ -199,7 +199,7 @@ const BrowseTasks = () => {
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center text-sm text-gray-500">
                       <DollarSign className="h-4 w-4 mr-2" />
-                      <span className="font-medium text-gray-900">{formatBudget(task.budget)}</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{formatBudget(task.budget)}</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-500">
                       <Calendar className="h-4 w-4 mr-2" />

@@ -43,16 +43,16 @@ const Login = () => {
   };
 
   return (
-    <div className="md:h-[700px] py-10 flex items-center justify-center bg-gray-50 p-4 font-sans">
-      <div className="bg-white p-8   shadow-md w-full max-w-md border border-gray-200">
+    <div className="md:h-[700px] py-10 flex items-center justify-center bg-gray-50 dark:bg-[#292E35] p-4 font-sans">
+      <div className="bg-white dark:bg-[#292E35] p-8   shadow-md w-full max-w-md border border-gray-200">
         { showError && <Error message={error} /> }
         { loading && <Loading /> }
-        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Welcome Back!</h2>
-        <p className="text-center text-gray-600 mb-8">Sign in to your Taskfolio account</p>
+        <h2 className="text-3xl font-semibold text-center dark:text-white text-gray-800 mb-6">Welcome Back!</h2>
+        <p className="text-center text-gray-600 mb-8 dark:text-white">Sign in to your Taskfolio account</p>
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
               Email Address
             </label>
             <input
@@ -67,7 +67,7 @@ const Login = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
               Password
             </label>
             <div className='relative'>
@@ -102,13 +102,13 @@ const Login = () => {
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-white">
                 Remember me
               </label>
             </div>
-            <a href="#" className="text-sm text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out">
+            <button className="text-sm text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out">
               Forgot password?
-            </a>
+            </button>
           </div>
 
           <button
@@ -120,9 +120,12 @@ const Login = () => {
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link to={'/signup'} className="font-medium text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out">
+          <p className="text-sm text-gray-600 dark:text-white">
+            Don't have an account?
+            <Link
+                to={'/signup'}
+                className="font-medium text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out ml-2"
+            >
               Sign Up
             </Link>
           </p>

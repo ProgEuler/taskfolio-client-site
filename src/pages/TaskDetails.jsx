@@ -65,29 +65,8 @@ const TaskDetails = () => {
     return <Loading />
   }
 
-  if (!task) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center py-12">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Task not found</h3>
-            <p className="text-gray-600">The task you're looking for doesn't exist.</p>
-            <button
-              onClick={() => navigator('/browse-tasks')}
-              className="mt-4 inline-flex items-center px-4 py-2 bg-blue-600 text-white   hover:bg-blue-700"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Browse Tasks
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#292E35]">
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -95,15 +74,15 @@ const TaskDetails = () => {
         <div className="flex justify-between items-center mb-6">
         <button
           onClick={ () => navigator('/browse-tasks')}
-          className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6"
+          className="inline-flex items-center text-gray-600 dark:text-white hover:text-gray-900 mb-6"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Back to Browse Tasks
         </button>
 
         {/* Always Visible Bid Count */}
-          <div className="bg-white border border-gray-200 rounded-lg px-4 py-2 shadow-sm">
-            <p className="text-sm text-gray-600">
+          <div className="bg-white dark:bg-[#292E35] border border-gray-200 rounded-lg px-4 py-2 shadow-sm">
+            <p className="text-sm text-gray-600 dark:text-white">
                 Bids Count :
               <span className="font-semibold text-blue-600"> {bidsCount} </span>
             </p>
@@ -123,14 +102,14 @@ const TaskDetails = () => {
           {/* Main Content */}
           <div className="lg:col-span-2">
             {/* Task Header */}
-            <div className="bg-white border border-gray-200 shadow-sm p-6 mb-6">
+            <div className="bg-white dark:bg-[#292E35] border border-gray-200 shadow-sm p-6 mb-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mb-2">
                     {task?.category}
                   </span>
-                  <h1 className="text-2xl font-bold text-gray-900 mb-2">{task.title}</h1>
-                  <p className="text-gray-600">{task.description}</p>
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{task.title}</h1>
+                  <p className="text-gray-600 dark:text-gray-200">{task.description}</p>
                 </div>
                 <div className="flex space-x-2">
                   <button className="p-2 text-gray-400 hover:text-red-500">
@@ -148,7 +127,7 @@ const TaskDetails = () => {
               </div>
 
               {/* Task Stats */}
-              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+              <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-white">
 
                 <div className="flex items-center">
                   <Calendar className="h-4 w-4 mr-1" />
@@ -158,50 +137,50 @@ const TaskDetails = () => {
             </div>
 
             {/* Task Details */}
-            <div className="bg-white border border-gray-200 shadow-sm p-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Project Details</h2>
+            <div className="bg-white dark:bg-[#292E35] border border-gray-200 shadow-sm p-6 mb-6">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Details</h2>
 
               {/* Project Info Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div className="flex items-center">
                   <DollarSign className="h-5 w-5 text-gray-400 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Budget</p>
-                    <p className="font-semibold text-lg text-gray-900">{formatBudget(task.budget)}</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Budget</p>
+                    <p className="font-semibold text-lg text-gray-900 dark:text-gray-400">{formatBudget(task.budget)}</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <Calendar className="h-5 w-5 text-gray-400 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Deadline</p>
-                    <p className="font-semibold text-gray-900">{formatDate(task.deadline)}</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Deadline</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-400">{formatDate(task.deadline)}</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <Clock className="h-5 w-5 text-gray-400 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Duration</p>
-                    <p className="font-semibold text-gray-900">5-6 Weeks</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Duration</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-400">5-6 Weeks</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <MapPin className="h-5 w-5 text-gray-400 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Location</p>
-                    <p className="font-semibold text-gray-900">Remote</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Location</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-400">Remote</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <Briefcase className="h-5 w-5 text-gray-400 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Experience Level</p>
-                    <p className="font-semibold text-gray-900">Intermediate</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Experience Level</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-400">Intermediate</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Status</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Status</p>
                     <p className="font-semibold text-green-600">Active</p>
                   </div>
                 </div>
@@ -212,7 +191,7 @@ const TaskDetails = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1 top-16 sticky self-start h-fit">
             {/* Action Buttons */}
-            <div className="bg-white border border-gray-200 shadow-sm mb-6 backdrop-blur-sm rounded-xl p-6">
+            <div className="bg-white dark:bg-[#292E35] border border-gray-200 shadow-sm mb-6 backdrop-blur-sm rounded-xl p-6">
               <input
                 onClick={handleBidsCount}
                 className="w-full bg-blue-600 text-white py-3 px-4   font-medium hover:bg-blue-700 transition-colors duration-200 mb-3 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
@@ -222,15 +201,15 @@ const TaskDetails = () => {
               />
 
               <button
-                className="w-full shadow-sm  border border-gray-200 shadow-sm-gray-300 text-gray-700 py-3 px-4   font-medium hover:bg-gray-50 transition-colors duration-200"
+                className="w-full shadow-sm  border border-gray-200 shadow-sm-gray-300 text-gray-700 py-3 px-4 dark:text-white dark:hover:text-black  font-medium hover:bg-gray-50 transition-colors duration-200"
               >
                 Contact Client
               </button>
             </div>
 
             {/* Poster Information */}
-            <div className="bg-white border border-gray-200 shadow-sm p-6 mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">About the Client</h3>
+            <div className="bg-white dark:bg-[#292E35] border border-gray-200 shadow-sm p-6 mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-400 mb-4">About the Client</h3>
 
               <div className="flex items-center mb-4">
                 <img
@@ -239,17 +218,17 @@ const TaskDetails = () => {
                   className="w-12 h-12 rounded-full mr-3 object-cover"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900">{task.userInfo?.name}</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-400 ">{task.userInfo?.name}</h4>
                   <div className="flex items-center">
                     <Star className="h-4 w-4 text-yellow-400 mr-1" />
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-600 dark:text-white">
                       4.5
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-2 text-sm text-gray-600 mb-4">
+              <div className="space-y-2 text-sm text-gray-600 dark:text-white mb-4">
                 <div className="flex justify-between">
                   <span>Member since:</span>
                   <span className="font-medium">
@@ -257,7 +236,7 @@ const TaskDetails = () => {
                   </span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600">{task.userInfo?.bio}</p>
+              <p className="text-sm text-gray-600 dark:text-white">{task.userInfo?.bio}</p>
             </div>
           </div>
         </div>

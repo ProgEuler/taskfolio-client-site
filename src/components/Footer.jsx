@@ -6,30 +6,12 @@ const Footer = () => {
 
   const quickLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Browse Tasks', href: '/browse' },
-    { name: 'How It Works', href: '/how-it-works' },
-    { name: 'Pricing', href: '/pricing' },
+    { name: 'Browse Tasks', href: '/browse-tasks' },
   ];
 
   const userLinks = [
-    { name: 'My Profile', href: '/profile' },
-    { name: 'My Posted Tasks', href: '/my-tasks' },
-    { name: 'Add Task', href: '/add-task' },
-    { name: 'Dashboard', href: '/dashboard' },
-  ];
-
-  const supportLinks = [
-    { name: 'Help Center', href: '/help' },
-    { name: 'Contact Us', href: '/contact' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Community', href: '/community' },
-  ];
-
-  const legalLinks = [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
-    { name: 'Disclaimer', href: '/disclaimer' },
+    { name: 'My Posted Tasks', href: '/my-posted-tasks' },
+    { name: 'Add Task', href: '/add-tasks' },
   ];
 
   const socialLinks = [
@@ -104,23 +86,6 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-
-          {/* Support */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Support</h3>
-            <ul className="space-y-2">
-              {supportLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         {/* Newsletter Subscription */}
@@ -152,23 +117,6 @@ const Footer = () => {
             {/* Copyright */}
             <div className="text-gray-300 text-sm mb-4 md:mb-0">
               © {currentYear} Taskfolio. All rights reserved.
-            </div>
-
-            {/* Legal Links */}
-            <div className="flex flex-wrap justify-center md:justify-end space-x-6 mb-4 md:mb-0">
-              {legalLinks.map((link, index) => (
-                <React.Fragment key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-gray-300 hover:text-white text-sm transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
-                  {index < legalLinks.length - 1 && (
-                    <span className="text-gray-500 hidden md:inline">|</span>
-                  )}
-                </React.Fragment>
-              ))}
             </div>
 
             {/* Social Media Links */}

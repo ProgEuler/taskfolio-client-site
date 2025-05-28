@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Clock, DollarSign, User, Star, Search, Briefcase, Users, TrendingUp, Calendar, MapPin, Award, CheckCircle, Sliders } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { Link } from 'react-router';
 import Slider from '../components/Slider';
 
@@ -126,17 +126,17 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#292E35]">
       {/* Hero Slider Section */}
       <section className="relative overflow-hidden">
         <Slider />
       </section>
 
       {/* Featured Tasks Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 dark:bg-[#292E35]">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">Featured Projects</h2>
+            <h2 className="text-4xl md:text-5xl font-light text-gray-900 dark:text-white mb-6">Featured Projects</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Connect with top-tier opportunities from leading companies worldwide
             </p>
@@ -144,7 +144,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredTasks.map((task) => (
-              <div key={task.id} className="bg-white rounded-none shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-blue-500 group cursor-pointer">
+              <div key={task.id} className="bg-white dark:bg-[#292E35] rounded-none shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-blue-500 group cursor-pointer">
                 <div className="p-8">
                   {/* Header with category and urgency */}
                   <div className="flex justify-between items-start mb-6">
@@ -158,7 +158,7 @@ const Home = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-medium text-gray-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-4 leading-tight group-hover:text-blue-600 transition-colors">
                     {task.title}
                   </h3>
 
@@ -178,7 +178,7 @@ const Home = () => {
 
                   {/* Stats */}
                   <div className="flex items-center justify-between mb-6 pt-4 border-t border-gray-100">
-                    <div className="text-2xl font-light text-gray-900">
+                    <div className="text-2xl font-light text-gray-900 dark:text-white">
                       ${task.budget.toLocaleString()}
                     </div>
                     <div className="text-right">
@@ -213,7 +213,7 @@ const Home = () => {
       </section>
 
       {/* Top Categories Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-[#292E35]">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">In-Demand Skills</h2>
@@ -224,7 +224,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {topCategories.map((category, index) => (
-              <div key={index} className="bg-white border border-gray-200 hover:border-blue-500 transition-all duration-300 cursor-pointer group">
+              <div key={index} className="bg-white dark:bg-[#292E35] border border-gray-200 hover:border-blue-500 transition-all duration-300 cursor-pointer group">
                 <div className="p-8">
                   <div className="flex items-start justify-between mb-6">
                     <div className="text-4xl opacity-80 group-hover:opacity-100 transition-opacity">
@@ -236,12 +236,12 @@ const Home = () => {
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-medium text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 transition-colors">
                     {category.name}
                   </h3>
 
                   <div className="mb-6">
-                    <div className="text-2xl font-light text-gray-900 mb-1">
+                    <div className="text-2xl font-light text-gray-900 dark:text-white mb-1">
                       {category.jobs.toLocaleString()}
                     </div>
                     <div className="text-xs text-gray-500 uppercase tracking-wide">
@@ -262,7 +262,7 @@ const Home = () => {
       </section>
 
       {/* Success Stories Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 dark:bg-[#292E35]">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">Success Stories</h2>
@@ -273,7 +273,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {successStories.map((story, index) => (
-              <div key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all duration-300">
+              <div key={index} className="bg-white dark:bg-[#292E35] border border-gray-200 hover:shadow-lg transition-all duration-300">
                 <div className="p-8">
                   {/* Rating and Amount */}
                   <div className="flex justify-between items-start mb-8">
@@ -282,7 +282,7 @@ const Home = () => {
                         <Star key={i} size={14} className="text-yellow-400 fill-current mr-1" />
                       ))}
                     </div>
-                    <div className="text-2xl font-light text-gray-900">{story.amount}</div>
+                    <div className="text-2xl font-light text-gray-900 dark:text-white">{story.amount}</div>
                   </div>
 
                   {/* Project Type */}

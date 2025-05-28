@@ -92,13 +92,13 @@ const MyPostedTasks = () => {
   if (loading) return <Loading />
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#292E35]">
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Posted Tasks</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Posted Tasks</h1>
           </div>
           <button
             onClick={() => navigate('/add-tasks')} // Fixed: updated variable name
@@ -111,16 +111,16 @@ const MyPostedTasks = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white border border-gray-200 rounded shadow-sm p-6">
+          <div className="bg-white dark:bg-[#292E35] border border-gray-200 rounded shadow-sm p-6">
             <div className="flex items-center">
-                <p className="text-gray-600 text-sm">Total Tasks</p>
-                <h3 className="ml-4 text-2xl font-bold text-gray-900">{tasks.length}</h3>
+                <p className="text-gray-600 dark:text-white text-sm">Total Tasks</p>
+                <h3 className="ml-4 text-2xl font-bold text-gray-900 dark:text-white">{tasks.length}</h3>
             </div>
           </div>
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded shadow-sm border border-gray-200 p-4 mb-6"> {/* Fixed: added 'rounded' class */}
+        <div className="bg-white dark:bg-[#292E35] rounded shadow-sm border border-gray-200 p-4 mb-6"> {/* Fixed: added 'rounded' class */}
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Search */}
             <div className="flex-1 relative">
@@ -146,7 +146,7 @@ const MyPostedTasks = () => {
                   <div className="text-gray-400 mb-4">
                     <Eye className="h-12 w-12 mx-auto" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No tasks found</h3>
                   <p className="text-gray-600 mb-4">
                     {tasks.length === 0
                       ? "You haven't posted any tasks yet. Start by creating your first task!"
@@ -166,7 +166,7 @@ const MyPostedTasks = () => {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-50 dark:bg-[#292E35]">
                       <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Task Details
@@ -184,10 +184,10 @@ const MyPostedTasks = () => {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredTasks.map((task) => (
-                        <tr key={task._id} className="hover:bg-gray-50">
+                        <tr key={task._id} className="hover:bg-gray-50 dark:hover:bg-black dark:bg-[#292E35]">
                           <td className="px-6 py-4">
                             <div>
-                              <div className="text-sm font-medium text-gray-900 mb-1">
+                              <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">
                                 {task.title}
                               </div>
                               <div className="text-sm text-gray-500 mb-2">
@@ -201,13 +201,13 @@ const MyPostedTasks = () => {
                           <td className="px-6 py-4">
                             <div className="flex items-center text-sm">
                               <DollarSign className="h-4 w-4 text-gray-400 mr-1" />
-                              <span className="font-medium text-gray-900">
+                              <span className="font-medium text-gray-900 dark:text-white">
                                 {task.budget}
                               </span>
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <div className="flex items-center text-sm text-gray-900">
+                            <div className="flex items-center text-sm text-gray-900 dark:text-white">
                               <Calendar className="h-4 w-4 text-gray-400 mr-2" />
                               {task.deadline}
                             </div>
@@ -216,7 +216,7 @@ const MyPostedTasks = () => {
                             <div className="flex items-center justify-end space-x-2">
                               <button
                                 onClick={() => handleUpdate(task._id)}
-                                className="inline-flex items-center px-3 py-1 border border-gray-200 rounded text-xs font-medium text-gray-700 bg-white hover:bg-gray-50" // Fixed: corrected class names
+                                className="inline-flex items-center px-3 py-1 border border-gray-200 rounded text-xs font-medium text-gray-700 dark:text-white bg-white hover:bg-gray-50 dark:hover:bg-black dark:bg-[#292E35]" // Fixed: corrected class names
                                 title="Update Task"
                               >
                                 <Edit className="h-3 w-3 mr-1" />
@@ -224,7 +224,7 @@ const MyPostedTasks = () => {
                               </button>
                               <button
                                 onClick={() => handleDelete(task)}
-                                className="inline-flex items-center px-3 py-1 border border-red-200 rounded text-xs font-medium text-red-700 bg-white hover:bg-red-50" // Fixed: corrected class names
+                                className="inline-flex items-center px-3 py-1 border border-red-200 rounded text-xs font-medium text-red-700 bg-white hover:bg-red-50 dark:bg-transparent" // Fixed: corrected class names
                                 title="Delete Task"
                               >
                                 <Trash2 className="h-3 w-3 mr-1" />

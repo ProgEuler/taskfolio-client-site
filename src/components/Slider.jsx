@@ -11,7 +11,7 @@ const Slider = () => {
       subtitle: "Connect with skilled professionals from around the world",
       description: "Post your project and receive competitive bids from talented freelancers ready to bring your vision to life.",
       buttonText: "Post a Project",
-      bgGradient: "from-blue-600 via-purple-600 to-indigo-800",
+      bgGradient: "from-blue-600 via-purple-600 to-indigo-100",
       icon: Rocket,
       floatingIcons: [
         { Icon: Code, x: 15, y: 20, delay: 0 },
@@ -25,7 +25,7 @@ const Slider = () => {
       subtitle: "Access a global network of creative professionals",
       description: "From web developers to graphic designers, find experts who understand your vision and deliver exceptional results.",
       buttonText: "Browse Talent",
-      bgGradient: "from-emerald-500 via-teal-600 to-cyan-700",
+      bgGradient: "from-emerald-500 via-teal-500 to-cyan-100",
       icon: Users,
       floatingIcons: [
         { Icon: Globe, x: 20, y: 25, delay: 0 },
@@ -39,7 +39,7 @@ const Slider = () => {
       subtitle: "Turn ideas into reality with expert freelancers",
       description: "Whether you need a quick fix or a complete overhaul, our platform connects you with professionals who deliver quality work on time.",
       buttonText: "Get Started",
-      bgGradient: "from-orange-500 via-red-500 to-pink-600",
+      bgGradient: "from-orange-600 via-red-400 to-pink-300",
       icon: Zap,
       floatingIcons: [
         { Icon: Code, x: 25, y: 30, delay: 0.2 },

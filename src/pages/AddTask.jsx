@@ -192,20 +192,20 @@ const AddTask = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#292E35] py-12">
       {/* Success Alert */}
       {showSuccessAlert && <Success message="Task Added Successfully" />}
 
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
+          <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 dark:text-white">
             Post a New Project
           </h1>
         </div>
 
         {/* Form Card */}
-        <div className="bg-white border border-gray-200 shadow-sm">
+        <div className="bg-white dark:bg-[#292E35] border border-gray-200 shadow-sm">
           <div className="p-8 md:p-12">
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -213,7 +213,7 @@ const AddTask = () => {
                 <div className="space-y-8">
                   {/* Task Title */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3 dark:text-white">
                       <FileText size={16} className="inline mr-2" />
                       Project Title *
                     </label>
@@ -241,7 +241,7 @@ const AddTask = () => {
 
                   {/* Category */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3 dark:text-white">
                       <Tag size={16} className="inline mr-2" />
                       Category *
                     </label>
@@ -270,7 +270,7 @@ const AddTask = () => {
 
                   {/* Deadline */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3 dark:text-white">
                       <Calendar size={16} className="inline mr-2" />
                       Project Deadline *
                     </label>
@@ -294,7 +294,7 @@ const AddTask = () => {
 
                   {/* Budget */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3 dark:text-white">
                       <DollarSign size={16} className="inline mr-2" />
                       Budget (USD) *
                     </label>
@@ -323,7 +323,7 @@ const AddTask = () => {
                 <div className="space-y-8">
                   {/* Description */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3 dark:text-white">
                       Project Description *
                     </label>
                     <textarea
@@ -350,7 +350,7 @@ const AddTask = () => {
 
                   {/* User Email (Read Only) */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3 dark:text-white">
                       <Mail size={16} className="inline mr-2" />
                       Your Email
                     </label>
@@ -365,7 +365,7 @@ const AddTask = () => {
 
                   {/* User Name (Read Only) */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3 dark:text-white">
                       <User size={16} className="inline mr-2" />
                       Your Name
                     </label>
@@ -394,7 +394,7 @@ const AddTask = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button
                     type="button"
-                    className="px-12 py-4 border border-gray-300 text-gray-700 text-sm font-medium tracking-wide hover:bg-gray-50 transition-colors"
+                    className="px-12 py-4 border border-gray-300 text-gray-700 text-sm font-medium tracking-wide hover:bg-gray-50 transition-colors dark:text-white"
                     onClick={() => window.history.back()}
                   >
                     CANCEL

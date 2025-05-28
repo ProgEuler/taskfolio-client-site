@@ -122,19 +122,19 @@ const Signup = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md border border-gray-200">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-sans dark:bg-[#292E35]">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md border border-gray-200 dark:bg-[#292E35]">
         { showError && <Error message={error} /> }
         { loading && <Loading /> }
         {
             showSuccess &&
             <Success message={`User "${name}" created successfully`}/>
         }
-        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-4">Createor Account</h2>
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-4 dark:text-white">Create Account</h2>
 
         <form onSubmit={handleRegister} className="space-y-5">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
               Full Name
             </label>
             <input
@@ -149,7 +149,7 @@ const Signup = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
               Email Address
             </label>
             <input
@@ -164,7 +164,7 @@ const Signup = () => {
           </div>
 
           <div>
-            <label htmlFor="photoURL" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="photoURL" className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
               Photo URL (Optional)
             </label>
             <input
@@ -179,7 +179,7 @@ const Signup = () => {
 
           {/* Password field with eye icon */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
               Password
             </label>
             <div className="relative">
@@ -209,7 +209,7 @@ const Signup = () => {
 
           {/* Confirm Password field with eye icon */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1 dark:text-white">
               Confirm Password
             </label>
             <div className="relative">
@@ -257,7 +257,7 @@ const Signup = () => {
         </div>
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-white">
             Already have an account?{' '}
             <Link to={'/login'} className="font-medium text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out">
               Login

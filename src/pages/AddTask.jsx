@@ -144,7 +144,7 @@ const AddTask = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post('/https://taskfolio-server-site.vercel.app/api/tasks', formData);
+      const response = await axios.post('https://taskfolio-server-site.vercel.app/api/tasks', formData);
       //console.log('Task created successfully:', response.data);
 
       setShowSuccessAlert(true);

@@ -14,7 +14,7 @@ const TaskDetails = () => {
   const [disableBidButton, setDisableBidButton] = useState(false);
 
     useEffect( () => {
-        axios.get('/https://taskfolio-server-site.vercel.app/api/tasks/' + id)
+        axios.get('https://taskfolio-server-site.vercel.app/api/tasks/' + id)
         .then((res) => {
             //console.log(res.data)
             setTask(res.data)
@@ -51,7 +51,7 @@ const TaskDetails = () => {
     setShowBidsMessage(true);
     setBidsCount(prevCount => prevCount + 1);
     setDisableBidButton(true);
-    axios.patch('/https://taskfolio-server-site.vercel.app/api/tasks/' + id , { bids: bidsCount + 1 })
+    axios.patch('https://taskfolio-server-site.vercel.app/api/tasks/' + id , { bids: bidsCount + 1 })
         .then((res) => {
             //console.log(res.data);
             }

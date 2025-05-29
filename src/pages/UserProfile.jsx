@@ -3,12 +3,14 @@ import { Edit2, Save, X, Star, Calendar, CheckCircle, User, Eye, Plus } from 'lu
 import axios from 'axios';
 import { AuthContext } from '../provider/AuthProvider';
 import { useParams } from 'react-router';
+import Loading from '../components/Loading';
 
 export default function UserProfile() {
   const { updateUser, setUser } = use(AuthContext);
   const { email } = useParams()
 
   const [isEditing, setIsEditing] = useState(false);
+  const [showLoading, setShowLoading] = useState(true)
 
     const [profile, setProfile] = useState({});
     useEffect(() => {
@@ -18,6 +20,7 @@ export default function UserProfile() {
         axios.get(`https://taskfolio-server-site.vercel.app/api/users/${email}`)
             .then(response => {
                 setProfile(response.data);
+                setShowLoading(false)
                 //console.log("Profile data fetched:", response.data);
                 //console.log(user)
             })
@@ -89,6 +92,7 @@ export default function UserProfile() {
     }
   };
 
+  if(showLoading) return <Loading />
   return (
     <div className="max-w-6xl mx-auto p-6 bg-gray-50 dark:bg-[#292E35] min-h-screen">
       {/* Header */}

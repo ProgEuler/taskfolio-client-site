@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Rocket, Users, Globe, Zap, Code, Palette, Camera, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router';
 
 const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -156,7 +157,7 @@ const Slider = () => {
 
             {/* CTA Button with hover effects */}
             <button className="group relative px-8 py-4 bg-white text-gray-800 rounded-full font-semibold text-lg hover:bg-white/90 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
-              <span className="relative z-10">{currentSlideData.buttonText}</span>
+              <Link to={'/add-tasks'} className="relative z-10">{currentSlideData.buttonText}</Link>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </button>
           </div>
